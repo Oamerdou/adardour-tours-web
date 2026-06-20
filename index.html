@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adardour — Morocco Tours & Expeditions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=Nunito+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<!-- EmailJS SDK -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+  :root {
+    --sand: #E8D5B0;
+    --terracotta: #C4622D;
+    --saffron: #E8A020;
+    --midnight: #0D0A06;
+    --deep: #1A1208;
+    --spice: #8B3A0F;
+    --gold: #D4A843;
+    --ivory: #F5EDD8;
+    --muted: #9A8870;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--midnight);
+    color: var(--ivory);
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.5rem 4rem;
+    background: linear-gradient(to bottom, rgba(13,10,6,0.95), transparent);
+    transition: background 0.4s;
+  }
+  nav.scrolled { background: rgba(13,10,6,0.97); }
+  .logo { font-family:'Cinzel',serif; font-size:1.5rem; letter-spacing:0.12em; color:var(--gold); text-decoration:none; }
+  .logo span { color: var(--terracotta); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sand); text-decoration: none; transition: color 0.3s; }
+  .nav-links a:hover { color: var(--saffron); }
+  .nav-cta { padding: 0.55rem 1.6rem; border: 1px solid var(--terracotta); color: var(--terracotta); font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; transition: all 0.3s; }
+  .nav-cta:hover { background: var(--terracotta); color: var(--ivory); }
+
+  /* ── HERO ── */
+  #hero { height: 105vh; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 30% 60%, rgba(196,98,45,0.18) 0%, transparent 55%),
+                radial-gradient(ellipse at 75% 30%, rgba(212,168,67,0.12) 0%, transparent 50%),
+                linear-gradient(165deg, #0D0A06 0%, #1A1208 40%, #100B04 100%);
+  }
+  .hero-pattern {
+    position: absolute; inset: 0; opacity: 0.06;
+    background-image:
+      repeating-linear-gradient(60deg, var(--gold) 0, var(--gold) 1px, transparent 0, transparent 50%),
+      repeating-linear-gradient(-60deg, var(--gold) 0, var(--gold) 1px, transparent 0, transparent 50%);
+    background-size: 40px 40px;
+  }
+  .arch-left, .arch-right { position: absolute; bottom: 0; width: 320px; height: 520px; border-radius: 160px 160px 0 0; border: 1px solid rgba(212,168,67,0.15); opacity: 0.5; }
+  .arch-left { left: -60px; }
+  .arch-right { right: -60px; }
+  .hero-content { text-align: center; position: relative; z-index: 2; animation: heroFade 1.2s ease forwards; }
+  @keyframes heroFade { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-eyebrow { font-size: 0.72rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--saffron); margin-bottom: 1.5rem; animation: heroFade 1.2s 0.2s ease both; }
+  .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(4rem, 9vw, 8.5rem); font-weight: 300; line-height: 0.9; color: var(--ivory); margin-bottom: 1.8rem; animation: heroFade 1.2s 0.4s ease both; }
+  .hero-title em { font-style: italic; color: var(--gold); display: block; }
+  .hero-sub { font-size: 1rem; font-weight: 300; color: var(--muted); letter-spacing: 0.06em; max-width: 480px; margin: 0 auto 3rem; line-height: 1.8; animation: heroFade 1.2s 0.6s ease both; }
+  .hero-buttons { display: flex; gap: 1.2rem; justify-content: center; animation: heroFade 1.2s 0.8s ease both; }
+  .btn-primary { padding: 1rem 2.8rem; background: var(--terracotta); color: var(--ivory); font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; transition: all 0.3s; position: relative; overflow: hidden; }
+  .btn-primary::after { content: ''; position: absolute; inset: 0; background: var(--spice); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+  .btn-primary:hover::after { transform: scaleX(1); }
+  .btn-primary span { position: relative; z-index: 1; }
+  .btn-ghost { padding: 1rem 2.8rem; border: 1px solid rgba(232,213,176,0.3); color: var(--sand); font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; transition: all 0.3s; }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+  .hero-scroll { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: var(--muted); font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; animation: heroFade 4s ease infinite; }
+  .scroll-line { width: 1px; height: 50px; background: linear-gradient(to bottom, var(--gold), transparent); animation: scrollPulse 2s ease infinite; }
+  @keyframes scrollPulse { 0%,100% { opacity: 0.4; } 50% { opacity: 1; } }
+
+  /* ── SECTION BASE ── */
+  section { padding: 8rem 4rem; }
+  .section-label { font-size: 0.68rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 1rem; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 300; line-height: 1.1; color: var(--ivory); }
+  .section-title em { font-style: italic; color: var(--gold); }
+
+  /* ── DESTINATIONS ── */
+  #destinations { background: var(--deep); }
+.destinations-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 4rem; }
+.dest-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr; grid-template-rows: auto auto; gap: 2px; }
+.dest-card { position: relative; overflow: hidden; background: #1e160c; cursor: pointer; }
+.dest-card:first-child { grid-row: 1 / 3; }
+.dest-card-inner { position: relative; width: 100%; height: 100%; min-height: 280px; }
+.dest-card:first-child .dest-card-inner { min-height: 580px; }
+.dest-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s ease, filter 0.7s ease; filter: brightness(0.55) saturate(0.8); }
+.dest-card:hover .dest-img { transform: scale(1.06); filter: brightness(0.65) saturate(1.1); }
+.dest-fallback { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; font-size: 6rem; opacity: 0.25; }
+.dest-card:nth-child(1) .dest-fallback { background: linear-gradient(135deg,#3D1F0A,#6B3515); }
+.dest-card:nth-child(2) .dest-fallback { background: linear-gradient(135deg,#0A1A2E,#1A3550); }
+.dest-card:nth-child(3) .dest-fallback { background: linear-gradient(135deg,#1A2E0A,#2A4A15); }
+.dest-card:nth-child(4) .dest-fallback { background: linear-gradient(135deg,#2E1A0A,#4A3015); }
+.dest-card:nth-child(5) .dest-fallback { background: linear-gradient(135deg,#0A2020,#153535); }
+.dest-fallback.active { display: flex; }
+.dest-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem; background: linear-gradient(to top, rgba(13,10,6,0.96) 0%, rgba(13,10,6,0.4) 60%, transparent 100%); }
+.dest-region { font-size: 0.62rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--saffron); margin-bottom: 0.4rem; }
+.dest-name { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; font-weight: 400; color: var(--ivory); }
+.dest-card:first-child .dest-name { font-size: 2.6rem; }
+.dest-desc { font-size: 0.82rem; color: var(--muted); margin-top: 0.4rem; line-height: 1.6; max-height: 0; overflow: hidden; transition: max-height 0.4s ease, opacity 0.4s; opacity: 0; }
+.dest-card:hover .dest-desc { max-height: 80px; opacity: 1; }
+.dest-arrow { display: inline-block; margin-top: 0.8rem; font-size: 1.2rem; color: var(--gold); transform: translateX(-8px); transition: transform 0.3s; opacity: 0; }
+.dest-card:hover .dest-arrow { transform: translateX(0); opacity: 1; }
+.dest-count { position: absolute; top: 1.2rem; right: 1.2rem; background: rgba(13,10,6,0.85); border: 1px solid rgba(212,168,67,0.25); padding: 0.3rem 0.7rem; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); z-index: 4; }
+.dest-link { display: block; position: absolute; inset: 0; z-index: 3; }
+
+/* ── TOURS (tabbed) ── */
+#tours { background: var(--midnight); }
+.tours-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; margin-bottom: 4rem; }
+.tours-text p { color: var(--muted); line-height: 1.9; margin-top: 1.5rem; font-size: 0.95rem; }
+.tours-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; padding-top: 1rem; }
+.stat-item { border-left: 1px solid rgba(212,168,67,0.2); padding-left: 1.5rem; }
+.stat-num { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 300; color: var(--gold); line-height: 1; }
+.stat-label { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-top: 0.3rem; }
+
+/* tab bar */
+.tour-tabs { display: flex; gap: 0; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 3rem; overflow-x: auto; scrollbar-width: none; }
+.tour-tabs::-webkit-scrollbar { display: none; }
+.tab-btn { background: none; border: none; padding: 1rem 1.8rem; font-family: 'Nunito Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); cursor: pointer; white-space: nowrap; position: relative; transition: color 0.3s; flex-shrink: 0; }
+.tab-btn::after { content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 2px; background: var(--terracotta); transform: scaleX(0); transition: transform 0.3s; }
+.tab-btn.active { color: var(--ivory); }
+.tab-btn.active::after { transform: scaleX(1); }
+.tab-btn:hover { color: var(--sand); }
+
+.tour-panel { display: none; }
+.tour-panel.active { display: block; }
+.tours-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+
+/* tour cards */
+.tour-card { background: var(--deep); position: relative; overflow: hidden; transition: transform 0.4s ease; cursor: pointer; display: flex; flex-direction: column; }
+.tour-card::before { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(to right, var(--terracotta), var(--gold)); transform: scaleX(0); transition: transform 0.4s; z-index: 2; }
+.tour-card:hover { transform: translateY(-4px); }
+.tour-card:hover::before { transform: scaleX(1); }
+.tour-img-wrap { position: relative; width: 100%; height: 200px; overflow: hidden; flex-shrink: 0; }
+.tour-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease, filter 0.6s ease; filter: brightness(0.7) saturate(0.85); display: block; }
+.tour-card:hover .tour-img { transform: scale(1.06); filter: brightness(0.8) saturate(1.1); }
+.tour-img-fallback { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; font-size: 3.5rem; opacity: 0.35; }
+.tour-img-fallback.active { display: flex; }
+.tour-img-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 50%, rgba(13,10,6,0.7) 100%); pointer-events: none; }
+.tour-body { padding: 2.2rem; flex: 1; display: flex; flex-direction: column; }
+.tour-badge { display: inline-block; padding: 0.3rem 0.9rem; border: 1px solid var(--terracotta); font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 1.2rem; }
+.tour-name { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; font-weight: 400; color: var(--ivory); margin-bottom: 0.7rem; line-height: 1.15; }
+.tour-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.5rem; flex: 1; }
+.tour-meta { display: flex; gap: 1.5rem; font-size: 0.72rem; color: var(--muted); flex-wrap: wrap; }
+.tour-meta span { display: flex; align-items: center; gap: 0.4rem; }
+.tour-price { margin-top: 1.8rem; padding-top: 1.2rem; border-top: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; align-items: flex-end; }
+.price-from { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+.price-amount { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--gold); font-weight: 300; }
+.price-amount sup { font-size: 1rem; vertical-align: super; }
+.tour-book { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--terracotta); text-decoration: none; transition: color 0.3s; background: none; border: none; cursor: pointer; font-family: 'Nunito Sans', sans-serif; }
+.tour-book:hover { color: var(--gold); }
+.tours-view-all { text-align: center; margin-top: 3rem; }
+
+  /* ── EXPERIENCE ── */
+  #experience { background: var(--deep); display: grid; grid-template-columns: 1fr 1fr; gap: 0; padding: 0; }
+  .exp-visual { position: relative; min-height: 600px; background: linear-gradient(145deg, #1A0E05 0%, #2D1A08 100%); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .exp-pattern { position: absolute; inset: 0; opacity: 0.08; background-image: repeating-conic-gradient(var(--gold) 0% 25%, transparent 0% 50%); background-size: 30px 30px; }
+  .exp-medallion { width: 280px; height: 280px; border: 1px solid rgba(212,168,67,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative; z-index: 2; animation: spin 40s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .exp-medallion::before { content: ''; position: absolute; inset: 15px; border: 1px solid rgba(196,98,45,0.25); border-radius: 50%; }
+  .exp-inner { font-size: 5rem; animation: spinReverse 40s linear infinite; }
+  @keyframes spinReverse { to { transform: rotate(-360deg); } }
+  .exp-content { padding: 7rem 5rem; display: flex; flex-direction: column; justify-content: center; }
+  .exp-features { margin-top: 3rem; display: flex; flex-direction: column; gap: 2rem; }
+  .exp-feature { display: flex; gap: 1.5rem; align-items: flex-start; }
+  .feat-icon { width: 44px; height: 44px; flex-shrink: 0; border: 1px solid rgba(196,98,45,0.3); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--terracotta); }
+  .feat-title { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 400; color: var(--ivory); margin-bottom: 0.3rem; }
+  .feat-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.7; }
+
+  /* ── TESTIMONIALS ── */
+  #testimonials { background: var(--midnight); text-align: center; }
+  .testimonials-header { margin-bottom: 4rem; }
+  .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; margin-top: 3rem; }
+  .testimonial-card { background: var(--deep); overflow: hidden; text-align: left; position: relative; }
+  .testi-img-wrap { position: relative; width: 100%; height: 160px; overflow: hidden; }
+  .testi-img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.55) saturate(0.7); transition: transform 0.5s ease; display: block; }
+  .testimonial-card:hover .testi-img { transform: scale(1.04); }
+  .testi-img-fallback { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; font-size: 3rem; }
+  .testi-img-fallback.active { display: flex; }
+  .testi-img-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, rgba(26,18,8,0.85) 100%); pointer-events: none; }
+  .testi-body { padding: 2.5rem; position: relative; }
+  .testimonial-card::before { content: '\201C'; font-family: 'Cormorant Garamond', serif; font-size: 6rem; color: var(--terracotta); opacity: 0.15; position: absolute; top: 1rem; left: 2rem; line-height: 1; pointer-events: none; }
+  .testi-text { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-style: italic; color: var(--sand); line-height: 1.8; margin-bottom: 2rem; position: relative; z-index: 1; }
+  .testi-author { display: flex; align-items: center; gap: 1rem; }
+  .testi-avatar { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, var(--terracotta), var(--gold)); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; overflow: hidden; flex-shrink: 0; }
+  .testi-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+  .testi-name { font-size: 0.85rem; color: var(--ivory); font-weight: 600; }
+  .testi-origin { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.1em; }
+  .stars { color: var(--saffron); font-size: 0.75rem; letter-spacing: 0.1em; margin-bottom: 1.2rem; }
+
+  /* ── BOOKING STRIP ── */
+  #booking {
+    background: linear-gradient(135deg, var(--spice) 0%, #3D1505 40%, var(--deep) 100%);
+    text-align: center;
+    padding: 7rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  #booking::before {
+    content: '';
+    position: absolute; inset: 0; opacity: 0.05;
+    background-image: repeating-linear-gradient(45deg, var(--gold) 0, var(--gold) 1px, transparent 0, transparent 50%);
+    background-size: 20px 20px;
+  }
+  .booking-content { position: relative; z-index: 1; }
+  .booking-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.5rem, 5vw, 5rem); font-weight: 300; color: var(--ivory); margin-bottom: 1rem; }
+  .booking-title em { font-style: italic; color: var(--gold); }
+  .booking-sub { color: rgba(255,255,255,0.6); margin-bottom: 3rem; font-size: 1rem; }
+
+  /* ── ENHANCED BOOKING FORM ── */
+  .booking-form-wrap { max-width: 760px; margin: 0 auto; }
+
+  .booking-fields {
+    display: flex;
+    gap: 0;
+    border: 1px solid rgba(232,213,176,0.2);
+  }
+  .booking-fields input,
+  .booking-fields select {
+    flex: 1;
+    background: rgba(13,10,6,0.6);
+    border: none;
+    padding: 1.1rem 1.5rem;
+    color: var(--ivory);
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.85rem;
+    outline: none;
+    border-right: 1px solid rgba(232,213,176,0.1);
+    transition: background 0.2s;
+  }
+  .booking-fields input:focus,
+  .booking-fields select:focus { background: rgba(30,22,12,0.9); }
+  .booking-fields input::placeholder { color: var(--muted); }
+  .booking-fields select option { background: var(--deep); }
+  .booking-fields input.field-error,
+  .booking-fields select.field-error { box-shadow: inset 0 -2px 0 #e05555; }
+
+  #booking-submit {
+    padding: 1.1rem 2.5rem;
+    background: var(--terracotta);
+    color: var(--ivory);
+    border: none;
+    cursor: pointer;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-family: 'Nunito Sans', sans-serif;
+    transition: background 0.3s, opacity 0.3s;
+    white-space: nowrap;
+    min-width: 148px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  #booking-submit:hover:not(:disabled) { background: var(--spice); }
+  #booking-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+  .btn-spinner {
+    display: none;
+    width: 15px; height: 15px;
+    border: 2px solid rgba(245,237,216,0.35);
+    border-top-color: var(--ivory);
+    border-radius: 50%;
+    animation: spinBtn 0.7s linear infinite;
+  }
+  @keyframes spinBtn { to { transform: rotate(360deg); } }
+  #booking-submit.loading .btn-text { display: none; }
+  #booking-submit.loading .btn-spinner { display: block; }
+
+  /* Status messages */
+  .booking-status {
+    margin-top: 1.4rem;
+    padding: 0.9rem 1.4rem;
+    font-size: 0.88rem;
+    letter-spacing: 0.04em;
+    border-left: 3px solid;
+    text-align: left;
+    display: none;
+    animation: fadeUp 0.4s ease forwards;
+  }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+  .booking-status.success { display:block; border-color:var(--gold); background:rgba(212,168,67,0.08); color:var(--sand); }
+  .booking-status.error   { display:block; border-color:#e05555;    background:rgba(224,85,85,0.08);  color:#f5b0b0; }
+
+  /* ── WhatsApp FAB ── */
+  .wa-fab {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+  }
+  .wa-tooltip {
+    background: var(--deep);
+    color: var(--ivory);
+    font-size: 0.82rem;
+    padding: 0.5rem 0.9rem;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(8px);
+    transition: opacity 0.25s, transform 0.25s;
+    pointer-events: none;
+    border: 1px solid rgba(212,168,67,0.25);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    font-family: 'Nunito Sans', sans-serif;
+  }
+  .wa-fab:hover .wa-tooltip { opacity: 1; transform: translateX(0); }
+  .wa-btn {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: #25D366;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .wa-btn:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(37,211,102,0.55); }
+  .wa-btn svg { width: 30px; height: 30px; fill: white; }
+  .wa-pulse {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: #25D366;
+    animation: waPulse 2.2s ease-out infinite;
+    z-index: -1;
+  }
+  @keyframes waPulse {
+    0%   { transform: scale(1);   opacity: 0.6; }
+    70%  { transform: scale(1.5); opacity: 0; }
+    100% { transform: scale(1.5); opacity: 0; }
+  }
+
+  /* ── FOOTER ── */
+  footer { background: #060503; padding: 5rem 4rem 2rem; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; padding-bottom: 4rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .footer-logo { font-family: 'Cinzel', serif; font-size: 1.8rem; color: var(--gold); margin-bottom: 1.2rem; }
+  .footer-logo span { color: var(--terracotta); }
+  .footer-tagline { font-size: 0.85rem; color: var(--muted); line-height: 1.8; max-width: 280px; }
+  .footer-contact { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-contact a { font-size: 0.8rem; color: var(--muted); text-decoration: none; transition: color 0.3s; }
+  .footer-contact a:hover { color: var(--saffron); }
+  .footer-col h4 { font-family: 'Cinzel', serif; font-size: 0.75rem; letter-spacing: 0.2em; color: var(--gold); margin-bottom: 1.5rem; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+  .footer-col ul a { font-size: 0.82rem; color: var(--muted); text-decoration: none; transition: color 0.3s; }
+  .footer-col ul a:hover { color: var(--sand); }
+  .footer-bottom { padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; }
+  .footer-copy { font-size: 0.75rem; color: var(--muted); }
+  .footer-legal { display: flex; gap: 2rem; }
+  .footer-legal a { font-size: 0.72rem; color: var(--muted); text-decoration: none; transition: color 0.3s; }
+  .footer-legal a:hover { color: var(--sand); }
+
+  /* ── REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 2rem; }
+    .nav-links { display: none; }
+    section { padding: 5rem 2rem; }
+    .dest-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+    .dest-card:first-child { grid-row: auto; }
+    .tours-grid { grid-template-columns: 1fr; }
+    .tours-intro { grid-template-columns: 1fr; gap: 2rem; }
+    #experience { grid-template-columns: 1fr; }
+    .exp-visual { min-height: 300px; }
+    .exp-content { padding: 4rem 2rem; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .booking-fields { flex-direction: column; }
+    .booking-fields input,
+    .booking-fields select { border-right: none; border-bottom: 1px solid rgba(232,213,176,0.1); }
+    #booking-submit { width: 100%; }
+    .destinations-header { flex-direction: column; gap: 1rem; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="index.html" class="logo">Adar<span>dour</span> Tours</a>
+  <ul class="nav-links">
+    <li><a href="#destinations">Destinations</a></li>
+    <li><a href="#tours">Tours</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#testimonials">Stories</a></li>
+    <li><a href="#booking">Contact</a></li>
+  </ul>
+  <a href="#booking" class="nav-cta">Plan Your Journey</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="arch-left"></div>
+  <div class="arch-right"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">✦ Est. 2019 — Ouarzazzat, Morocco ✦</div>
+    <h1 class="hero-title">Discover<br><em>Morocco</em></h1>
+    <p class="hero-sub">From the golden dunes of the Sahara to the blue alleyways of Chefchaouen — let us guide you through the kingdom's most extraordinary landscapes and cultures.</p>
+    <div class="hero-buttons">
+      <a href="#tours" class="btn-primary"><span>Explore Tours</span></a>
+      <a href="#destinations" class="btn-ghost">View Destinations</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div>Scroll</div>
+</section>
+
+<!-- DESTINATIONS -->
+<section id="destinations">
+  <div class="destinations-header reveal">
+    <div>
+      <div class="section-label">✦ Where to Go</div>
+      <h2 class="section-title">Iconic <em>Destinations</em></h2>
+    </div>
+    <a href="#tours" class="btn-ghost" style="white-space:nowrap">View All Tours →</a>
+  </div>
+  <div class="dest-grid">
+    <div class="dest-card reveal">
+      <div class="dest-card-inner">
+        <img class="dest-img" src="sahara\desert.webp" alt="Camel caravan crossing Sahara dunes" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.classList.add('active')">
+        <div class="dest-fallback">🐪</div>
+        <div class="dest-count">4 tours</div>
+        <div class="dest-info">
+          <div class="dest-region">Southern Desert</div>
+          <div class="dest-name">Sahara Dunes</div>
+          <div class="dest-desc">Camp beneath a billion stars in the rolling erg of Merzouga.</div>
+          <div class="dest-arrow">→</div>
+        </div>
+        <a href="sahara.html" class="dest-link" aria-label="Explore Sahara Dunes"></a>
+      </div>
+    </div>
+    <div class="dest-card reveal reveal-delay-1">
+      <div class="dest-card-inner">
+        <img class="dest-img" src="marrackech\MARRAKECH.avif" alt="Marrakech medina rooftops at sunset" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.classList.add('active')">
+        <div class="dest-fallback">🏔️</div>
+        <div class="dest-count">6 tours</div>
+        <div class="dest-info">
+          <div class="dest-region">Imperial City</div>
+          <div class="dest-name">Marrakech</div>
+          <div class="dest-desc">Lose yourself in the labyrinthine medina, where spice markets and rooftop riads beckon at every turn.</div>
+          <div class="dest-arrow">→</div>
+        </div>
+        <a href="marrakech.html" class="dest-link" aria-label="Explore Marrakech"></a>
+      </div>
+    </div>
+    <div class="dest-card reveal reveal-delay-2">
+      <div class="dest-card-inner">
+        <img class="dest-img" src="chefchaouen\chefcha.webp" alt="Blue streets of Chefchaouen" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.classList.add('active')">
+        <div class="dest-fallback">💙</div>
+        <div class="dest-count">4 tours</div>
+        <div class="dest-info">
+          <div class="dest-region">Rif Mountains</div>
+          <div class="dest-name">Chefchaouen</div>
+          <div class="dest-desc">Wander cobalt-blue alleys draped in cascading bougainvillea.</div>
+          <div class="dest-arrow">→</div>
+        </div>
+        <a href="chefchaouen.html" class="dest-link" aria-label="Explore Chefchaouen"></a>
+      </div>
+    </div>
+    <div class="dest-card reveal reveal-delay-1">
+      <div class="dest-card-inner">
+        <img class="dest-img" src="essaouira\essaouiraee.webp" alt="White walls of Essaouira port" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.classList.add('active')">
+        <div class="dest-fallback">🌊</div>
+        <div class="dest-count">2 tours</div>
+        <div class="dest-info">
+          <div class="dest-region">Atlantic Coast</div>
+          <div class="dest-name">Essaouira</div>
+          <div class="dest-desc">A walled port city of white ramparts and ocean breezes.</div>
+          <div class="dest-arrow">→</div>
+        </div>
+        <a href="essaouira.html" class="dest-link" aria-label="Explore Essaouira"></a>
+      </div>
+    </div>
+    <div class="dest-card reveal reveal-delay-2">
+      <div class="dest-card-inner">
+        <img class="dest-img" src="fes\fes.1.webp" alt="Fes tanneries colorful dye vats" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.classList.add('active')">
+        <div class="dest-fallback">🕌</div>
+        <div class="dest-count">6 tours</div>
+        <div class="dest-info">
+          <div class="dest-region">Medieval Capital</div>
+          <div class="dest-name">Fès el-Bali</div>
+          <div class="dest-desc">The world's oldest living medieval city and cradle of Moroccan culture.</div>
+          <div class="dest-arrow">→</div>
+        </div>
+        <a href="fes.html" class="dest-link" aria-label="Explore Fès el-Bali"></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOURS (TABBED) -->
+<section id="tours" aria-labelledby="tours-heading">
+  <div class="tours-intro">
+    <div class="tours-text reveal">
+      <div class="section-label">✦ Our Journeys</div>
+      <h2 class="section-title" id="tours-heading">Curated <em>Tour</em><br>Experiences</h2>
+      <p>Every itinerary is crafted to move at the rhythm of discovery — not the clock. Choose your starting city and let our local guides open doors that maps don't show.</p>
+    </div>
+    <div class="tours-stats reveal reveal-delay-1">
+      <div class="stat-item"><div class="stat-num">6+</div><div class="stat-label">Years of experience</div></div>
+      <div class="stat-item"><div class="stat-num">1.1k</div><div class="stat-label">Journeys completed</div></div>
+      <div class="stat-item"><div class="stat-num">98%</div><div class="stat-label">Client satisfaction</div></div>
+      <div class="stat-item"><div class="stat-num">30+</div><div class="stat-label">Unique routes</div></div>
+    </div>
+  </div>
+
+  <!-- Tab Navigation -->
+  <div class="tour-tabs reveal" role="tablist" aria-label="Tours by departure city">
+    <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="panel-marrakech" id="tab-marrakech">From Marrakech</button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-fes" id="tab-fes">From Fès</button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-sahara" id="tab-sahara">Desert Tours</button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-signature" id="tab-signature">Signature</button>
+  </div>
+
+  <!-- Marrakech Tours -->
+  <div class="tour-panel active" id="panel-marrakech" role="tabpanel" aria-labelledby="tab-marrakech">
+    <div class="tours-grid">
+
+      <div class="tour-card reveal">
+        <div class="tour-img-wrap">
+          <img class="tour-img" src="sahara\ait ben hadou.webp" alt="Ait Benhaddou kasbah" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('active')">
+          <div class="tour-img-fallback" style="background:linear-gradient(135deg,#3D1F0A,#6B3515)">🏰</div>
+          <div class="tour-img-overlay"></div>
+        </div>
+        <div class="tour-body">
+          <div class="tour-badge">Day Trip</div>
+          <div class="tour-name">Aït Benhaddou & Ouarzazate</div>
+          <div class="tour-desc">Cross the High Atlas to the UNESCO kasbah used in Gladiator and Game of Thrones, then explore Ouarzazate — Morocco's Hollywood gateway.</div>
+          <div class="tour-meta">
+            <span>🕐 1 Day</span>
+            <span>👥 1–8 People</span>
+          </div>
+          <div class="tour-price">
+            <div><div class="price-from">From</div><div class="price-amount"><sup>$</sup>65</div></div>
+            <button class="tour-book" data-tour="Aït Benhaddou & Ouarzazate">Book Now →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tour-card reveal reveal-delay-1">
+        <div class="tour-img-wrap">
+          <img class="tour-img" src="essaouira\essaouiraee.webp" alt="Essaouira coastal city" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('active')">
+          <div class="tour-img-fallback" style="background:linear-gradient(135deg,#0A1A2E,#1A3550)">🌊</div>
+          <div class="tour-img-overlay"></div>
+        </div>
+        <div class="tour-body">
+          <div class="tour-badge">Day Trip</div>
+          <div class="tour-name">Essaouira Day Trip</div>
+          <div class="tour-desc">Drive the argan forest road to Morocco's windswept Atlantic port — Gnawa music, fresh grilled sardines, white ramparts, and blue-painted harbour boats.</div>
+          <div class="tour-meta">
+            <span>🕐 1 Day</span>
+            <span>👥 1–8 People</span>
+          </div>
+          <div class="tour-price">
+            <div><div class="price-from">From</div><div class="price-amount"><sup>$</sup>55</div></div>
+            <button class="tour-book" data-tour="Essaouira Day Trip">Book Now →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tour-card reveal reveal-delay-2">
+        <div class="tour-img-wrap">
+          <img class="tour-img" src="main\berber.webp" alt="Ourika Valley Atlas Mountains" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('active')">
+          <div class="tour-img-fallback" style="background:linear-gradient(135deg,#1A2E0A,#2A4A15)">🏔️</div>
+          <div class="tour-img-overlay"></div>
+        </div>
+        <div class="tour-body">
+          <div class="tour-badge">Day Trip</div>
+          <div class="tour-name">Ourika Valley & Atlas</div>
+          <div class="tour-desc">Follow the river through Berber villages to a waterfall in the High Atlas foothills. Visit an argan cooperative and share mint tea with a local family.</div>
+          <div class="tour-meta">
+            <span>🕐 1 Day</span>
+            <span>👥 1–8 People</span>
+          </div>
+          <div class="tour-price">
+            <div><div class="price-from">From</div><div class="price-amount"><sup>$</sup>50</div></div>
+            <button class="tour-book" data-tour="Ourika Valley">Book Now →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tour-card reveal">
+        <div class="tour-img-wrap">
+          <img class="tour-img" src="main\tanara.webp" alt="Zagora desert" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('active')">
+          <div class="tour-img-fallback" style="background:linear-gradient(135deg,#2E1A0A,#5A3A10)">🐪</div>
+          <div class="tour-img-overlay"></div>
+        </div>
+        <div class="tour-body">
+          <div class="tour-badge">Desert Adventure</div>
+          <div class="tour-name">2-Day Zagora Desert Tour</div>
+          <div class="tour-desc">Cross the Atlas, follow the Draa Valley palm groves and arrive at the edge of the Sahara for a camel trek and overnight at a desert bivouac camp.</div>
+          <div class="tour-meta">
+            <span>🕐 2 Days / 1 Night</span>
+            <span>👥 1–8 People</span>
+          </div>
+          <div class="tour-price">
+            <div><div class="price-from">From</div><div class="price-amount"><sup>$</sup>280</div></div>
+            <button class="tour-book" data-tour="2-Day Zagora Desert Tour">Book Now →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tour-card reveal reveal-delay-1">
+        <div class="tour-img-wrap">
+          <img class="tour-img" src="fes\fes.1.webp" alt="Fes medina" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('active')">
+          <div class="tour-img-fallback" style="background:linear-gradient(135deg,#3D1F0A,#6B3515)">🕌</div>
+          <div class="tour-img-overlay"></div>
+        </div>
+        <div class="tour-body">
+          <div class="tour-badge">Multi-City</div>
+          <div class="tour-name">3-Day Marrakech to Fès Desert Tour</div>
+          <div class="tour-desc">Atlas pass, Ait Benhaddou, Draa Valley, Merzouga dunes, Middle Atlas cedar forest — ending in the ancient medina of Fès.</div>
+          <div class="tour-meta">
+            <span>🕐 3 Days / 2 Nights</span>
+            <span>👥 1–8 People</span>
+          </div>
+          <div class="tour-price">
+            <div><div class="price-from">From</div><div class="price-amount"><sup>$</sup>390</div></div>
+            <button class="tour-book" data-tour="3-Day Marrakech to Fès">Book Now →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tour-card reveal reveal-delay-2">
+        <div class="tour-img-wrap">
+          <img class="tour-img" src="main\raabat.webp" alt="Imperial cities circuit" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('active')">
+          <div class="tour-img-fallback" style="background:linear-gradient(135deg,#1A2E0A,#2A4A15)">🏛️</div>
+          <div class="tour-img-overlay"></div>
+        </div>
+        <div class="tour-body">
+          <div class="tour-badge">Grand Tour</div>
+          <div class="tour-name">10-Day Morocco Grand Circuit</div>
+          <div class="tour-desc">The definitive Morocco experience from Marrakech: Sahara dunes, imperial cities Fès and Meknès, Chefchaouen, and back. Private vehicle throughout.</div>
+          <div class="tour-meta">
+            <span>🕐 10 Days / 9 Nights</span>
+            <span>👥 1–8 People</span>
+          </div>
+          <div class="tour-price">
+            <div><div class="price-from">From</div><div class="price-amount"><sup>$</sup>1,490</div></div>
+            <button class="tour-book" data-tour="10-Day Grand Circuit">Book Now →</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="tours-view-all reveal">
+      <a href="#booking" class="btn-ghost">Enquire about more Marrakech tours →</a>
+    </div>
+  </div>
+
+  <!-- Fès Tours -->
+  <div class="tour-panel" id="panel-fes" role="tabpanel" aria-labelledby="tab-fes">
+    <div class="tours-grid">
+
+      <div class="tour-card reveal">
+        <div class="tour-img-wrap">
+          <img class="tour-img" src="fes\chouara-tannery.webp" alt="Chouara tannery Fes" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('active')">
+          <div class="tour-img-fallback" style="background:linear-gradient(135deg,#3D1F0A,#5A2510)">🎨</div>
+          <div class="tour-img-overlay"></div>
+        </div>
+        <div class="tour-body">
+          <div class="tour-badge">Day Trip</div>
+          <div class="tour-name">Volubilis & Meknès Day Trip</div>
+          <div class="tour-desc">Visit Rome's westernmost major city, remarkably preserved on a Moroccan hillside, then the colossal Bab Mansour gate and royal stables of Meknès.</div>
+          <div class="tour-meta">
+            <span>🕐 1 Day</span>
+            <span>👥 1–8 People</span>
+          </div>
+          <div class="tour-price">
+            <div><div class="price-from">From</div><div class="price-amount"><sup>$</sup>55</div></div>
+            <button class="tour-book" data-tour="Volubilis & Meknès Day Trip">Book Now →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tour-card reveal reveal-delay-1">
+        <div class="tour-img-wrap">
+          <img class="tour-img" src="chefchaouen\chefcha.webp" alt="Chefchaouen blue city" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('active')">
+          <div class="tour-img-fallback" style="background:linear-gradient(135deg,#0A1A3A,#1A3560)">💙</div>
+          <div class="tour-img-overlay"></div>
+        </div>
+        <div class="tour-body">
+          <div class="tour-badge">Day Trip</div>
+          <div class="tour-name">Chefchaouen Blue City</div>
+          <div class="tour-desc">A full-day trip from Fès to Morocco's most photographed blue-washed hillside medina — alleys painted in fifty shades of cobalt and periwinkle.</div>
+          <div class="tour-meta">
+            <span>🕐 1 Day</span>
+            <span>👥 1–8 People</span>
+          </div>
+          <div class="tour-price">
+            <div><div class="price-from">From</div><div class="price-amount"><sup>$</sup>65</div></div>
+            <button class="tour-book" data-tour="Chefchaouen Day Trip from Fès">Book Now →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tour-card reveal reveal-delay-2">
+        <div class="tour-img-wrap">
+          <img class="tour-img" src="sahara\desert.webp" alt="Merzouga Sahara dunes" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('active')">
+          <div class="tour-img-fallback" style="background:linear-gradient(135deg,#2E1A0A,#5A3A10)">🐪</div>
+          <div class="tour-img-overlay"></div>
+        </div>
+        <div class="tour-body">
+          <div class="tour-badge">Desert Adventure</div>
+          <div class="tour-name">2-Day Fès to Merzouga Sahara</div>
+          <div class="tour-desc">Depart the ancient medina and follow caravan routes through the Middle Atlas and Ziz Valley to the golden Erg Chebbi dunes. Overnight bivouac camp.</div>
+          <div class="tour-meta">
+            <span>🕐 2 Days / 1 Night</span>
+            <span>👥 1–8 People</span>
+          </div>
+          <div class="tour-price">
+            <div><div class="price-from">From</div><div class="price-amount"><sup>$</sup>320</div></div>
+            <button class="tour-book" data-tour="2-Day Fès to Merzouga">Book Now →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tour-card reveal">
+        <div class="tour-img-wrap">
+          <img class="tour-img" src="fes\Bou Inania.webp" alt="Fes medina architecture" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('active')">
+          <div class="tour-img-fallback" style="background:linear-gradient(135deg,#3D1A05,#6B3010)">🌿</div>
+          <div class="tour-img-overlay"></div>
+        </div>
+        <div class="tour-body">
+          <div class="tour-badge">Nature</div>
+          <div class="tour-name">Middle Atlas Day Trip</div>
+          <div class="tour-desc">Cedar forest of Azrou, Barbary macaques, the quiet hill town of Ifrane — a refreshing half-day escape into nature from Fès, with local lunch in the forest.</div>
+          <div class="tour-meta">
+            <span>🕐 1 Day</span>
+            <span>👥 1–8 People</span>
+          </div>
+          <div class="tour-price">
+            <div><div class="price-from">From</div><div class="price-amount"><sup>$</sup>48</div></div>
+            <button class="tour-book" data-tour="Middle Atlas Day Trip">Book Now →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tour-card reveal reveal-delay-1">
+        <div class="tour-img-wrap">
+          <img class="tour-img" src="main\raabat.webp" alt="Imperial cities Morocco" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('active')">
+          <div class="tour-img-fallback" style="background:linear-gradient(135deg,#0A1A2E,#1A3550)">🏛️</div>
+          <div class="tour-img-overlay"></div>
+        </div>
+        <div class="tour-body">
+          <div class="tour-badge">Multi-City</div>
+          <div class="tour-name">4-Day Fès to Merzouga & Gorges</div>
+          <div class="tour-desc">Sahara dunes, the spectacular Todra and Dadès gorges, Ouarzazate, and the kasbah trail — ending in Marrakech via Ait Benhaddou.</div>
+          <div class="tour-meta">
+            <span>🕐 4 Days / 3 Nights</span>
+            <span>👥 1–8 People</span>
+          </div>
+          <div class="tour-price">
+            <div><div class="price-from">From</div><div class="price-amount"><sup>$</sup>590</div></div>
+            <button class="tour-book" data-tour="4-Day Fès to Merzouga & Gorges">Book Now →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tour-card reveal reveal-delay-2">
+        <div class="tour-img-wrap">
+          <img class="tour-img" src="main\atlantic.webp" alt="Morocco landscape" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('active')">
+          <div class="tour-img-fallback" style="background:linear-gradient(135deg,#1A2E0A,#2A4A15)">🗺️</div>
+          <div class="tour-img-overlay"></div>
+        </div>
+        <div class="tour-body">
+          <div class="tour-badge">Grand Tour</div>
+          <div class="tour-name">10-Day Imperial Tour from Fès</div>
+          <div class="tour-desc">The complete northern Morocco experience: Fès, Chefchaouen, Rabat, Casablanca, Marrakech, the Atlas, Sahara, and back — Morocco's full story in one journey.</div>
+          <div class="tour-meta">
+            <span>🕐 10 Days / 9 Nights</span>
+            <span>👥 1–8 People</span>
+          </div>
+          <div class="tour-price">
+            <div><div class="price-from">From</div><div class="price-amount"><sup>$</sup>1,650</div></div>
+            <button class="tour-book" data-tour="10-Day Imperial Tour from Fès">Book Now →</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="tours-view-all reveal">
+      <a href="#booking" class="btn-ghost">Enquire about more Fès tours →</a>
+    </div>
+  </div>
+
+  <!-- Desert Tours -->
+  <div class="tour-panel" id="panel-sahara" role="tabpanel" aria-labelledby="tab-sahara">
+    <div class="tours-grid">
+
+      <div class="tour-card reveal">
+        <div class="tour-img-wrap">
+          <img class="tour-img" src="sahara\desert.webp" alt="Sahara dunes camel trek" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('active')">
+          <div class="tour-img-fallback" style="background:linear-gradient(135deg,#2E1A0A,#5A3A10)">🐪</div>
+          <div class="tour-img-overlay"></div>
+        </div>
+        <div class="tour-body">
+          <div class="tour-badge">Desert Classic</div>
+          <div class="tour-name">Sahara Camel Trek & Bivouac</div>
+          <div class="tour-desc">Ride into Erg Chebbi dunes at sunset, sleep in a luxury Berber tent under stars undimmed by light pollution, rise for dawn from the dune summit.</div>
+          <div class="tour-meta">
+            <span>🕐 5 Days</span>
+            <span>👥 1–7 People</span>
+          </div>
+          <div class="tour-price">
+            <div><div class="price-from">From</div><div class="price-amount"><sup>$</sup>690</div></div>
+            <button class="tour-book" data-tour="Sahara Camel Trek">Book Now →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tour-card reveal reveal-delay-1">
+        <div class="tour-img-wrap">
+          <img class="tour-img" src="sahara\ait ben hadou.webp" alt="Ait Benhaddou and Ouarzazate" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('active')">
+          <div class="tour-img-fallback" style="background:linear-gradient(135deg,#3D1F0A,#6B3515)">🎬</div>
+          <div class="tour-img-overlay"></div>
+        </div>
+        <div class="tour-body">
+          <div class="tour-badge">Cinematic</div>
+          <div class="tour-name">Kasbah Aït Benhaddou & Telouet</div>
+          <div class="tour-desc">A full day from Ouarzazate visiting the UNESCO kasbah, walking the Ounila Valley, and exploring the Glaoui palace at Telouet with its crumbling carved stucco.</div>
+          <div class="tour-meta">
+            <span>🕐 1 Day</span>
+            <span>👥 1–8 People</span>
+          </div>
+          <div class="tour-price">
+            <div><div class="price-from">From</div><div class="price-amount"><sup>$</sup>75</div></div>
+            <button class="tour-book" data-tour="Kasbah Aït Benhaddou & Telouet">Book Now →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tour-card reveal reveal-delay-2">
+        <div class="tour-img-wrap">
+          <img class="tour-img" src="sahara\dayet-srji.webp" alt="Merzouga desert lake flamingos" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('active')">
+          <div class="tour-img-fallback" style="background:linear-gradient(135deg,#1A0E05,#3A2008)">🌅</div>
+          <div class="tour-img-overlay"></div>
+        </div>
+        <div class="tour-body">
+          <div class="tour-badge">Desert Immersion</div>
+          <div class="tour-name">3-Day Merzouga Desert Tour</div>
+          <div class="tour-desc">From Errachidia: kohl mine, nomad tent visits, Khamlia Gnawa music, camel trek at sunset, full desert day with sandboarding and star-gazing.</div>
+          <div class="tour-meta">
+            <span>🕐 3 Days / 2 Nights</span>
+            <span>👥 1–8 People</span>
+          </div>
+          <div class="tour-price">
+            <div><div class="price-from">From</div><div class="price-amount"><sup>$</sup>420</div></div>
+            <button class="tour-book" data-tour="3-Day Merzouga Desert Tour">Book Now →</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="tours-view-all reveal">
+      <a href="#booking" class="btn-ghost">Enquire about more desert tours →</a>
+    </div>
+  </div>
+
+  <!-- Signature Tours -->
+  <div class="tour-panel" id="panel-signature" role="tabpanel" aria-labelledby="tab-signature">
+    <div class="tours-grid">
+
+      <div class="tour-card reveal">
+        <div class="tour-img-wrap">
+          <img class="tour-img" src="main\raabat.webp" alt="Imperial cities Morocco" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('active')">
+          <div class="tour-img-fallback" style="background:linear-gradient(135deg,#3D1F0A,#6B3515)">🏛️</div>
+          <div class="tour-img-overlay"></div>
+        </div>
+        <div class="tour-body">
+          <div class="tour-badge">Signature Tour</div>
+          <div class="tour-name">Imperial Cities Grand Circuit</div>
+          <div class="tour-desc">Marrakech, Fès, Meknès, and Rabat — four royal cities that shaped a civilisation over a thousand years. Our most celebrated multi-day tour.</div>
+          <div class="tour-meta">
+            <span>🕐 10 Days</span>
+            <span>👥 1–7 People</span>
+          </div>
+          <div class="tour-price">
+            <div><div class="price-from">From</div><div class="price-amount"><sup>$</sup>1,490</div></div>
+            <button class="tour-book" data-tour="Imperial Cities Circuit">Book Now →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tour-card reveal reveal-delay-1">
+        <div class="tour-img-wrap">
+          <img class="tour-img" src="main\berber.webp" alt="Atlas Mountains Berber villages" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('active')">
+          <div class="tour-img-fallback" style="background:linear-gradient(135deg,#1A2E0A,#2A4A15)">🏔️</div>
+          <div class="tour-img-overlay"></div>
+        </div>
+        <div class="tour-body">
+          <div class="tour-badge">Cultural Immersion</div>
+          <div class="tour-name">Atlas Mountains & Berber Villages</div>
+          <div class="tour-desc">Trek through High Atlas passes, share mint tea with Amazigh families, and sleep in a restored kasbah in the Ourika Valley — authentic Morocco at altitude.</div>
+          <div class="tour-meta">
+            <span>🕐 7 Days</span>
+            <span>👥 1–7 People</span>
+          </div>
+          <div class="tour-price">
+            <div><div class="price-from">From</div><div class="price-amount"><sup>$</sup>950</div></div>
+            <button class="tour-book" data-tour="Atlas Mountains">Book Now →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tour-card reveal reveal-delay-2">
+        <div class="tour-img-wrap">
+          <img class="tour-img" src="main\Bespoke.webp" alt="Luxury riad interior" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('active')">
+          <div class="tour-img-fallback" style="background:linear-gradient(135deg,#0A2020,#153535)">✨</div>
+          <div class="tour-img-overlay"></div>
+        </div>
+        <div class="tour-body">
+          <div class="tour-badge">Luxury Private</div>
+          <div class="tour-name">Bespoke Morocco</div>
+          <div class="tour-desc">Entirely tailor-made. Your pace, your passions, your Morocco. Private transfers, hand-picked riads, exclusive artisan access, private cooking classes.</div>
+          <div class="tour-meta">
+            <span>🕐 Flexible</span>
+            <span>👥 1–7 People</span>
+          </div>
+          <div class="tour-price">
+            <div><div class="price-from">From</div><div class="price-amount"><sup>$</sup>2,400</div></div>
+            <button class="tour-book" data-tour="Bespoke Private Tour">Enquire →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tour-card reveal">
+        <div class="tour-img-wrap">
+          <img class="tour-img" src="main\atlantic.webp" alt="Atlantic coastal trail Morocco" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('active')">
+          <div class="tour-img-fallback" style="background:linear-gradient(135deg,#0A1A2E,#1A3550)">🌊</div>
+          <div class="tour-img-overlay"></div>
+        </div>
+        <div class="tour-body">
+          <div class="tour-badge">Coastal Escape</div>
+          <div class="tour-name">Atlantic Coastal Trail</div>
+          <div class="tour-desc">Casablanca to Agadir — surf towns, Phoenician ruins, argan groves, and Essaouira's white ramparts along Morocco's stunning Atlantic seaboard.</div>
+          <div class="tour-meta">
+            <span>🕐 8 Days</span>
+            <span>👥 1–7 People</span>
+          </div>
+          <div class="tour-price">
+            <div><div class="price-from">From</div><div class="price-amount"><sup>$</sup>1,180</div></div>
+            <button class="tour-book" data-tour="Atlantic Coastal Trail">Book Now →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tour-card reveal reveal-delay-1">
+        <div class="tour-img-wrap">
+          <img class="tour-img" src="main\flavore.webp" alt="Moroccan spices and tagine" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('active')">
+          <div class="tour-img-fallback" style="background:linear-gradient(135deg,#2E180A,#5A3010)">🍽️</div>
+          <div class="tour-img-overlay"></div>
+        </div>
+        <div class="tour-body">
+          <div class="tour-badge">Gastronomy</div>
+          <div class="tour-name">Flavours of Morocco</div>
+          <div class="tour-desc">A culinary journey through souks and home kitchens — mastering tagine, bastilla, and the art of Moroccan spice blending with master chefs in Marrakech and Fès.</div>
+          <div class="tour-meta">
+            <span>🕐 6 Days</span>
+            <span>👥 1–7 People</span>
+          </div>
+          <div class="tour-price">
+            <div><div class="price-from">From</div><div class="price-amount"><sup>$</sup>820</div></div>
+            <button class="tour-book" data-tour="Flavours of Morocco">Book Now →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tour-card reveal reveal-delay-2">
+        <div class="tour-img-wrap">
+          <img class="tour-img" src="main\tanara.webp" alt="Morocco grand tour landscape" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('active')">
+          <div class="tour-img-fallback" style="background:linear-gradient(135deg,#2E1A0A,#4A2010)">🌍</div>
+          <div class="tour-img-overlay"></div>
+        </div>
+        <div class="tour-body">
+          <div class="tour-badge">Grand Tour</div>
+          <div class="tour-name">7-Day Morocco Grand Tour from Fès</div>
+          <div class="tour-desc">Imperial cities, the Blue City Chefchaouen, and Saharan magic — Fès, Chefchaouen, Meknès, Volubilis, desert dunes, Marrakech. Morocco in a week.</div>
+          <div class="tour-meta">
+            <span>🕐 7 Days / 6 Nights</span>
+            <span>👥 1–8 People</span>
+          </div>
+          <div class="tour-price">
+            <div><div class="price-from">From</div><div class="price-amount"><sup>$</sup>890</div></div>
+            <button class="tour-book" data-tour="7-Day Morocco Grand Tour">Book Now →</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="tours-view-all reveal">
+      <a href="#booking" class="btn-ghost">Enquire about bespoke itineraries →</a>
+    </div>
+  </div>
+
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="exp-visual">
+    <div class="exp-pattern"></div>
+    <div class="exp-medallion">
+      <img class="tour-img" src="main\adardour_circular_logo.svg" alt="tanara">
+    </div>
+  </div>
+  <div class="exp-content">
+    <div class="section-label reveal">✦ Why Adardour Tours</div>
+    <h2 class="section-title reveal reveal-delay-1">The Adardour<br><em>Difference</em></h2>
+    <div class="exp-features">
+      <div class="exp-feature reveal reveal-delay-1"><div class="feat-icon">🧭</div><div><div class="feat-title">Expert Local Guides</div><div class="feat-desc">Every guide is a native Moroccan with deep cultural knowledge, fluent in English, French, Spanish, and Arabic.</div></div></div>
+      <div class="exp-feature reveal reveal-delay-2"><div class="feat-icon">🏰</div><div><div class="feat-title">Handpicked Accommodations</div><div class="feat-desc">From intimate family-run riads in the medina to eco-glamping under desert stars — each stay is chosen for character.</div></div></div>
+      <div class="exp-feature reveal reveal-delay-3"><div class="feat-icon">♻️</div><div><div class="feat-title">Responsible Tourism</div><div class="feat-desc">We support local artisans, use community-owned transport, and contribute 3% of revenue to Moroccan cultural preservation.</div></div></div>
+      <div class="exp-feature reveal reveal-delay-3"><div class="feat-icon">📞</div><div><div class="feat-title">24 / 7 On-trip Support</div><div class="feat-desc">A dedicated Adardour concierge is always reachable — before, during, and after your journey.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="testimonials-header reveal">
+    <div class="section-label">✦ Traveller Stories</div>
+    <h2 class="section-title">Words from our <em>Guests</em></h2>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card reveal">
+      <div class="testi-img-wrap">
+        <img class="testi-img" src="main\Sahara night camp under stars.webp" alt="Sahara night camp under stars" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.classList.add('active')">
+        <div class="testi-img-fallback" style="background:linear-gradient(135deg,#1A1208,#2D1A08)">🌟</div>
+        <div class="testi-img-overlay"></div>
+      </div>
+      <div class="testi-body">
+        <div class="stars">★★★★★</div>
+        <div class="testi-text">"The desert night camp was beyond anything I imagined. Absolute silence, a sky full of stars, and the most generous hospitality I've ever encountered."</div>
+        <div class="testi-author">
+          <div class="testi-avatar"><img src="main\profile test motion1.jfif" alt="profile test motion1" onerror="this.style.display='none'; this.parentElement.textContent='🇬🇧'"></div>
+          <div><div class="testi-name">Sophie & James H.</div><div class="testi-origin">London, United Kingdom</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal reveal-delay-1">
+      <div class="testi-img-wrap">
+        <img class="testi-img" src="main\Fes medina tanneries.webp" alt="Fes medina tanneries view" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.classList.add('active')">
+        <div class="testi-img-fallback" style="background:linear-gradient(135deg,#1A1208,#2D1A08)">🕌</div>
+        <div class="testi-img-overlay"></div>
+      </div>
+      <div class="testi-body">
+        <div class="stars">★★★★★</div>
+        <div class="testi-text">"Our guide Rachid transformed Fès from a maze into a living museum. Fourteen days was not enough — we are already planning our return."</div>
+        <div class="testi-author">
+          <div class="testi-avatar"><img src="main\profile test motion2.jfif" alt="profile test motion2" onerror="this.style.display='none'; this.parentElement.textContent='🇨🇦'"></div>
+          <div><div class="testi-name">Marie-Claire D.</div><div class="testi-origin">Montréal, Canada</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal reveal-delay-2">
+      <div class="testi-img-wrap">
+        <img class="testi-img" src="main\Atlas mountains Berber village.webp" alt="Atlas mountains Berber village" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.classList.add('active')">
+        <div class="testi-img-fallback" style="background:linear-gradient(135deg,#1A1208,#2D1A08)">🏔️</div>
+        <div class="testi-img-overlay"></div>
+      </div>
+      <div class="testi-body">
+        <div class="stars">★★★★★</div>
+        <div class="testi-text">"The private Bespoke tour was flawless — every detail anticipated. The Atlas village stay with a local family will stay with me forever."</div>
+        <div class="testi-author">
+          <div class="testi-avatar"><img src="main\profile test motion3.jfif" alt="profile test motion3" onerror="this.style.display='none'; this.parentElement.textContent='🇺🇸'"></div>
+          <div><div class="testi-name">David & Priya K.</div><div class="testi-origin">San Francisco, USA</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section id="booking" aria-labelledby="booking-heading">
+  <div class="booking-content reveal">
+    <div class="section-label">✦ Begin Your Journey</div>
+    <h2 class="booking-title" id="booking-heading">Ready for <em>Morocco</em>?</h2>
+    <p class="booking-sub">Tell us your dates and interests — we'll craft the perfect itinerary within 24 hours.</p>
+    <div class="booking-form-wrap">
+      <div class="booking-fields" role="group" aria-label="Booking enquiry form">
+        <input id="booking-name" type="text" placeholder="Your full name" autocomplete="name" aria-label="Full name" />
+        <input id="booking-email" type="email" placeholder="Email address" autocomplete="email" aria-label="Email address" />
+        <select id="booking-tour" aria-label="Choose a tour">
+          <option value="" disabled selected>Choose a tour</option>
+          <optgroup label="From Marrakech">
+            <option>Aït Benhaddou & Ouarzazate</option>
+            <option>Essaouira Day Trip</option>
+            <option>Ourika Valley</option>
+            <option>2-Day Zagora Desert Tour</option>
+            <option>3-Day Marrakech to Fès</option>
+            <option>10-Day Grand Circuit</option>
+          </optgroup>
+          <optgroup label="From Fès">
+            <option>Volubilis & Meknès Day Trip</option>
+            <option>Chefchaouen Day Trip from Fès</option>
+            <option>2-Day Fès to Merzouga</option>
+            <option>Middle Atlas Day Trip</option>
+            <option>4-Day Fès to Merzouga & Gorges</option>
+            <option>10-Day Imperial Tour from Fès</option>
+          </optgroup>
+          <optgroup label="Desert Tours">
+            <option>Sahara Camel Trek</option>
+            <option>Kasbah Aït Benhaddou & Telouet</option>
+            <option>3-Day Merzouga Desert Tour</option>
+          </optgroup>
+          <optgroup label="Signature">
+            <option>Imperial Cities Circuit</option>
+            <option>Atlas Mountains & Berber Villages</option>
+            <option>Bespoke Private Tour</option>
+            <option>Atlantic Coastal Trail</option>
+            <option>Flavours of Morocco</option>
+            <option>7-Day Morocco Grand Tour</option>
+          </optgroup>
+        </select>
+        <button id="booking-submit" type="button">
+          <span class="btn-text">Request Info</span>
+          <span class="btn-spinner" aria-hidden="true"></span>
+        </button>
+      </div>
+      <div id="booking-status" class="booking-status" role="alert" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- WhatsApp FAB -->
+ <div class="wa-fab">
+  <div class="wa-tooltip">💬 Chat with us on WhatsApp</div>
+  <a class="wa-btn" href="https://wa.me/+351961500554?text=Hello%2C%20I%27m%20interested%20in%20booking%20a%20tour%20with%20Adardour%20Tours!" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <div class="wa-pulse"></div>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">ADAR<span>Dour</span></div>
+      <div class="footer-tagline">Crafting immersive Moroccan journeys since 2019. Licensed by the Moroccan Ministry of Tourism.</div>
+      <div class="footer-contact">
+        <a href="tel:+212524443322">📞 +212 524 44 33 22</a>
+        <a href="mailto:hello@Adardour.com">✉️ hello@Adardour.com</a>
+        <a href="#">📍 47 some place, Ouarzazate, Morocco</a>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Tours</h4><ul><li><a href="#">Imperial Cities</a></li><li><a href="#">Sahara Desert</a></li><li><a href="#">Atlas Mountains</a></li><li><a href="#">Coastal Trail</a></li><li><a href="#">Culinary Tours</a></li><li><a href="#">Bespoke Private</a></li></ul></div>
+    <div class="footer-col"><h4>Destinations</h4><ul><li><a href="marrakech.html">Marrakech</a></li><li><a href="fes.html">Fès & Meknès</a></li><li><a href="chefchaouen.html">Chefchaouen</a></li><li><a href="sahara.html">Merzouga Sahara</a></li><li><a href="essaouira.html">Essaouira</a></li><li><a href="#">Ouarzazate</a></li></ul></div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a href="#">About Us</a></li><li><a href="#">Our Guides</a></li><li><a href="#">Responsible Travel</a></li><li><a href="#">Press & Media</a></li><li><a href="#">Careers</a></li><li><a href="#">Blog</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Adardour. All rights reserved.</div>
+    <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Cookie Settings</a></div>
+  </div>
+</footer>
+
+<script>
+  /* ── NAV ── */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 60), { passive: true });
+
+/* ── Reveal on scroll ── */
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+/* ── Smooth scroll ── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
+});
+
+/* ── Tabs ── */
+const tabs = document.querySelectorAll('.tab-btn');
+const panels = document.querySelectorAll('.tour-panel');
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+    panels.forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    tab.setAttribute('aria-selected', 'true');
+    const panel = document.getElementById(tab.getAttribute('aria-controls'));
+    if (panel) {
+      panel.classList.add('active');
+      // re-trigger reveal for newly visible cards
+      panel.querySelectorAll('.reveal:not(.visible)').forEach(el => {
+        setTimeout(() => el.classList.add('visible'), 50);
+      });
+    }
+  });
+});
+
+/* ── "Book Now" auto-selects tour ── */
+document.querySelectorAll('.tour-book[data-tour]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const sel = document.getElementById('booking-tour');
+    const val = btn.dataset.tour;
+    Array.from(sel.options).forEach(o => { if (o.value === val || o.text === val) o.selected = true; });
+    document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+/* ── EmailJS ── */
+const EMAILJS_PUBLIC_KEY  = '49SHLmJ3QicguWw0-';
+const EMAILJS_SERVICE_ID  = 'service_pxfuhdt';
+const EMAILJS_TEMPLATE_ID = 'template_ftoq1eu';
+
+emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
+const submitBtn  = document.getElementById('booking-submit');
+const statusBox  = document.getElementById('booking-status');
+const nameInput  = document.getElementById('booking-name');
+const emailInput = document.getElementById('booking-email');
+const tourSelect = document.getElementById('booking-tour');
+
+function setStatus(type, msg) {
+  statusBox.className = 'booking-status ' + type;
+  statusBox.textContent = msg;
+}
+
+function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+async function handleSubmit() {
+  [nameInput, emailInput, tourSelect].forEach(el => el.classList.remove('field-error'));
+  statusBox.className = 'booking-status';
+  statusBox.textContent = '';
+
+  const name  = nameInput.value.trim();
+  const email = emailInput.value.trim();
+  const tour  = tourSelect.value;
+
+  let err = false;
+  if (!name)                { nameInput.classList.add('field-error');  err = true; }
+  if (!isValidEmail(email)) { emailInput.classList.add('field-error'); err = true; }
+  if (!tour)                { tourSelect.classList.add('field-error'); err = true; }
+
+  if (err) { setStatus('error', '⚠ Please complete all fields with a valid email address.'); return; }
+
+  submitBtn.disabled = true;
+  submitBtn.classList.add('loading');
+
+  try {
+    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+      from_name: name, from_email: email, tour, reply_to: email,
+    });
+    setStatus('success', `✦ Shukran, ${name}! Your enquiry has been sent. We'll be in touch within 24 hours.`);
+    nameInput.value = ''; emailInput.value = ''; tourSelect.selectedIndex = 0;
+  } catch (err) {
+    console.error('EmailJS error:', err);
+    setStatus('error', '✗ Something went wrong — please try again or email us at hello@adardour.com');
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.classList.remove('loading');
+  }
+}
+
+submitBtn.addEventListener('click', handleSubmit);
+[nameInput, emailInput].forEach(el =>
+  el.addEventListener('keydown', e => { if (e.key === 'Enter') handleSubmit(); })
+);
+</script>
+</body>
+</html>

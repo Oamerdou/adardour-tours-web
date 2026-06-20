@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Essaouira — index Morocco Tours</title>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=Nunito+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root { --sand:#E8D5B0; --terracotta:#C4622D; --saffron:#E8A020; --midnight:#0D0A06; --deep:#1A1208; --spice:#8B3A0F; --gold:#D4A843; --ivory:#F5EDD8; --muted:#9A8870; --ocean:#0D2535; --ocean-light:#1A4A6B; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--midnight); color:var(--ivory); font-family:'Nunito Sans',sans-serif; font-weight:300; overflow-x:hidden; }
+  nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:1.5rem 4rem; background:linear-gradient(to bottom,rgba(13,10,6,0.95),transparent); transition:background 0.4s; }
+  nav.scrolled { background:rgba(13,10,6,0.97); }
+  .logo { font-family:'Cinzel',serif; font-size:1.6rem; letter-spacing:0.12em; color:var(--gold); text-decoration:none; }
+  .logo span { color:var(--terracotta); }
+  .nav-links { display:flex; gap:2.5rem; list-style:none; }
+  .nav-links a { font-size:0.78rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--sand); text-decoration:none; transition:color 0.3s; }
+  .nav-links a:hover { color:var(--saffron); }
+  .nav-cta { padding:0.55rem 1.6rem; border:1px solid var(--terracotta); color:var(--terracotta); font-size:0.75rem; letter-spacing:0.18em; text-transform:uppercase; text-decoration:none; transition:all 0.3s; }
+  .nav-cta:hover { background:var(--terracotta); color:var(--ivory); }
+
+  #hero { height:110vh; position:relative; display:flex; align-items:flex-end; overflow:hidden; }
+  .hero-bg { position:absolute; inset:0; background:linear-gradient(to bottom,rgba(13,10,6,0.2) 0%,rgba(13,20,30,0.1) 40%,rgba(13,10,6,0.9) 75%,var(--midnight) 100%),radial-gradient(ellipse at 50% 40%,rgba(26,74,107,0.3) 0%,transparent 60%),linear-gradient(180deg,#0A1A28,#060E16); }
+  .wave-anim { position:absolute; bottom:0; left:0; right:0; height:200px; overflow:hidden; }
+  .wave { position:absolute; width:200%; height:100%; background:linear-gradient(to bottom,transparent,rgba(13,37,53,0.4)); border-radius:50% 50% 0 0 / 20% 20% 0 0; animation:wave 8s ease-in-out infinite; }
+  .wave:nth-child(2) { animation-delay:-4s; opacity:0.5; }
+  @keyframes wave { 0%,100%{transform:translateX(-10%) scaleY(0.8)} 50%{transform:translateX(-5%) scaleY(1.1)} }
+  .wind-lines { position:absolute; inset:0; opacity:0.03; background-image:repeating-linear-gradient(175deg,var(--ivory) 0,var(--ivory) 1px,transparent 0,transparent 60px); }
+  .hero-content { position:relative; z-index:2; padding:0 4rem 6rem; max-width:900px; }
+  .back-link { display:inline-flex; align-items:center; gap:0.6rem; font-size:0.72rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--muted); text-decoration:none; margin-bottom:2rem; transition:color 0.3s; opacity:0; animation:fadeUp 0.8s 0.2s forwards; }
+  .back-link:hover { color:var(--saffron); }
+  .dest-region-tag { font-size:0.72rem; letter-spacing:0.4em; text-transform:uppercase; color:var(--saffron); margin-bottom:1rem; opacity:0; animation:fadeUp 0.8s 0.3s forwards; }
+  .hero-title { font-family:'Cormorant Garamond',serif; font-size:clamp(4rem,10vw,9.5rem); font-weight:300; line-height:0.9; color:var(--ivory); opacity:0; animation:fadeUp 0.8s 0.4s forwards; }
+  .hero-title em { font-style:italic; color:var(--gold); }
+  .hero-sub { font-size:1.05rem; color:var(--muted); line-height:1.8; max-width:540px; margin-top:1.5rem; opacity:0; animation:fadeUp 0.8s 0.6s forwards; }
+  .hero-scroll { position:absolute; bottom:2rem; right:4rem; display:flex; flex-direction:column; align-items:center; gap:0.5rem; color:var(--muted); font-size:0.65rem; letter-spacing:0.25em; text-transform:uppercase; opacity:0; animation:fadeUp 0.8s 1s forwards; }
+  .scroll-line { width:1px; height:50px; background:linear-gradient(to bottom,var(--gold),transparent); animation:pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:0.4} 50%{opacity:1} }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(25px)} to{opacity:1;transform:translateY(0)} }
+
+  #facts { background:var(--deep); padding:3rem 4rem; }
+  .facts-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:1px; background:rgba(212,168,67,0.1); }
+  .fact-item { background:var(--deep); padding:2rem 1.5rem; text-align:center; }
+  .fact-icon { font-size:1.8rem; margin-bottom:0.8rem; }
+  .fact-value { font-family:'Cormorant Garamond',serif; font-size:1.6rem; color:var(--gold); margin-bottom:0.3rem; }
+  .fact-label { font-size:0.68rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); }
+
+  section.content-section { padding:8rem 4rem; }
+  .section-label { font-size:0.68rem; letter-spacing:0.4em; text-transform:uppercase; color:var(--terracotta); margin-bottom:1rem; }
+  .section-title { font-family:'Cormorant Garamond',serif; font-size:clamp(2.2rem,4vw,3.8rem); font-weight:300; line-height:1.1; color:var(--ivory); }
+  .section-title em { font-style:italic; color:var(--gold); }
+
+  .overview-grid { display:grid; grid-template-columns:1fr 1fr; gap:8rem; align-items:center; }
+  .overview-text p { color:var(--muted); line-height:1.9; font-size:0.95rem; margin-top:1.2rem; }
+  .img-frame { position:relative; width:100%; aspect-ratio:3/4; overflow:hidden; border:1px solid rgba(26,74,107,0.3); }
+  .img-frame img { width:100%; height:100%; object-fit:cover; filter:brightness(0.8) saturate(0.9); }
+  .img-frame-accent { position:absolute; top:-20px; right:-20px; width:80%; height:80%; border:1px solid rgba(196,98,45,0.2); pointer-events:none; z-index:-1; }
+  .img-caption { position:absolute; bottom:1.5rem; left:1.5rem; font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); }
+
+  .activities-strip { background:linear-gradient(135deg,var(--ocean),#0D1A26,var(--midnight)); padding:6rem 4rem; }
+  .activities-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; margin-top:4rem; }
+  .activity-card { background:rgba(13,37,53,0.5); border:1px solid rgba(26,74,107,0.3); padding:2.5rem 2rem; transition:border-color 0.3s,transform 0.3s; }
+  .activity-card:hover { border-color:var(--ocean-light); transform:translateY(-3px); }
+  .activity-icon { font-size:2.5rem; margin-bottom:1rem; }
+  .activity-card h4 { font-family:'Cormorant Garamond',serif; font-size:1.3rem; color:var(--ivory); margin-bottom:0.8rem; }
+  .activity-card p { font-size:0.82rem; color:var(--muted); line-height:1.7; }
+
+  .highlights-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; }
+  .highlight-card { position:relative; overflow:hidden; background:#1e160c; }
+  .highlight-card-inner { position:relative; min-height:360px; }
+  .highlight-fallback { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:5rem; opacity:0.18; overflow:hidden; }
+  /* ── FIXED: show full image, no zoom/crop ── */
+  .highlight-fallback img.tour-img {
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:auto;
+    object-position:center;
+    opacity:1;
+    filter:brightness(0.75) saturate(0.9);
+  }
+  .highlight-info { position:absolute; bottom:0; left:0; right:0; padding:2rem; background:linear-gradient(to top,rgba(13,10,6,0.97) 0%,rgba(13,10,6,0.4) 60%,transparent 100%); }
+  .highlight-num { font-family:'Cormorant Garamond',serif; font-size:3rem; font-weight:300; color:rgba(212,168,67,0.2); line-height:1; margin-bottom:0.3rem; }
+  .highlight-name { font-family:'Cormorant Garamond',serif; font-size:1.5rem; color:var(--ivory); margin-bottom:0.4rem; }
+  .highlight-desc { font-size:0.8rem; color:var(--muted); line-height:1.6; }
+
+  .itinerary-layout { display:grid; grid-template-columns:1fr 2fr; gap:6rem; }
+  .itinerary-sidebar { position:sticky; top:8rem; align-self:start; }
+  .itinerary-sidebar h3 { font-family:'Cormorant Garamond',serif; font-size:2.5rem; font-weight:300; color:var(--ivory); margin-top:1rem; line-height:1.1; }
+  .itinerary-sidebar h3 em { font-style:italic; color:var(--gold); }
+  .sidebar-note { margin-top:2rem; padding:1.5rem; border-left:2px solid var(--terracotta); }
+  .sidebar-note p { font-size:0.82rem; color:var(--muted); line-height:1.8; }
+  .days-list { display:flex; flex-direction:column; gap:0; }
+  .day-item { padding:2.5rem 0; border-bottom:1px solid rgba(255,255,255,0.06); display:grid; grid-template-columns:80px 1fr; gap:2rem; align-items:start; transition:background 0.3s; }
+  .day-item:hover { background:rgba(26,74,107,0.05); padding-left:1rem; padding-right:1rem; margin:0 -1rem; }
+  .day-num { font-family:'Cormorant Garamond',serif; font-size:2.5rem; font-weight:300; color:rgba(212,168,67,0.25); line-height:1; padding-top:0.2rem; }
+  .day-title { font-family:'Cormorant Garamond',serif; font-size:1.4rem; color:var(--ivory); margin-bottom:0.6rem; }
+  .day-desc { font-size:0.85rem; color:var(--muted); line-height:1.8; }
+  .day-tags { display:flex; gap:0.6rem; margin-top:1rem; flex-wrap:wrap; }
+  .day-tag { padding:0.25rem 0.8rem; border:1px solid rgba(196,98,45,0.3); font-size:0.62rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--terracotta); }
+
+  .practical-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:2rem; margin-top:4rem; }
+  .practical-card { background:rgba(13,10,6,0.6); border:1px solid rgba(212,168,67,0.1); padding:2rem; }
+  .practical-card .picon { font-size:2rem; margin-bottom:1rem; }
+  .practical-card h4 { font-family:'Cormorant Garamond',serif; font-size:1.2rem; color:var(--ivory); margin-bottom:0.8rem; }
+  .practical-card p { font-size:0.82rem; color:var(--muted); line-height:1.7; }
+  .practical-card ul { list-style:none; display:flex; flex-direction:column; gap:0.4rem; }
+  .practical-card ul li { font-size:0.8rem; color:var(--muted); padding-left:1rem; position:relative; }
+  .practical-card ul li::before { content:'✦'; position:absolute; left:0; color:var(--terracotta); font-size:0.5rem; top:0.2rem; }
+
+  /* ── TOUR GRID (Marrakech-style) ── */
+  .tours-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .tour-card { background: var(--deep); position: relative; overflow: hidden; transition: transform 0.4s ease; cursor: pointer; display: flex; flex-direction: column; }
+  .tour-card::before { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(to right, var(--ocean-light), var(--gold)); transform: scaleX(0); transition: transform 0.4s; z-index: 2; }
+  .tour-card:hover { transform: translateY(-4px); }
+  .tour-card:hover::before { transform: scaleX(1); }
+  .tour-img-wrap { position: relative; width: 100%; height: 200px; overflow: hidden; flex-shrink: 0; }
+  .tour-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease, filter 0.6s ease; filter: brightness(0.7) saturate(0.85); display: block; }
+  .tour-card:hover .tour-img { transform: scale(1.06); filter: brightness(0.8) saturate(1.1); }
+  .tour-img-fallback { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; font-size: 3.5rem; opacity: 0.35; }
+  .tour-img-fallback.active { display: flex; }
+  .tour-img-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 50%, rgba(13,10,6,0.7) 100%); pointer-events: none; }
+  .tour-body { padding: 2.2rem; flex: 1; display: flex; flex-direction: column; }
+  .tour-badge { display: inline-block; padding: 0.3rem 0.9rem; border: 1px solid var(--ocean-light); font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--ocean-light); margin-bottom: 1.2rem; }
+  .tour-name { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; font-weight: 400; color: var(--ivory); margin-bottom: 0.7rem; line-height: 1.15; }
+  .tour-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.5rem; flex: 1; }
+  .tour-meta { display: flex; gap: 1.5rem; font-size: 0.72rem; color: var(--muted); flex-wrap: wrap; }
+  .tour-meta span { display: flex; align-items: center; gap: 0.4rem; }
+  .tour-price { margin-top: 1.8rem; padding-top: 1.2rem; border-top: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; align-items: flex-end; }
+  .price-from { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+  .price-amount { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--gold); font-weight: 300; }
+  .price-amount sup { font-size: 1rem; vertical-align: super; }
+  .tour-book { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ocean-light); text-decoration: none; transition: color 0.3s; background: none; border: none; cursor: pointer; font-family: 'Nunito Sans', sans-serif; }
+  .tour-book:hover { color: var(--gold); }
+  .tour-price-note { height:0rem; font-size:0.62rem; color:var(--muted); margin-top:1.4rem; }
+  .tour-price-note:hover { color:var(--gold); margin-left:0.2rem; }
+  .tours-view-all { text-align: center; margin-top: 3rem; }
+  @media(max-width:900px){ .tours-grid { grid-template-columns: 1fr; } }
+
+  /* ── BOOKING FORM ── */
+  .booking-form-wrap { max-width: 700px; margin: 0 auto; }
+  .booking-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+  .booking-fields input, .booking-fields select {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
+    color: var(--ivory); padding: 0.9rem 1.2rem; font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.85rem; font-weight: 300; outline: none; transition: border-color 0.3s; width: 100%;
+  }
+  .booking-fields select { grid-column: 1 / -1; }
+  .booking-fields input:focus, .booking-fields select:focus { border-color: var(--ocean-light); }
+  .booking-fields input::placeholder { color: rgba(255,255,255,0.35); }
+  .booking-fields select option { background: #0D1A26; }
+  .booking-fields input.field-error, .booking-fields select.field-error { border-color: #e05050; }
+  .booking-fields button#booking-submit {
+    grid-column: 1 / -1; padding: 1rem; background: var(--ocean-light); border: none;
+    color: var(--ivory); font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase;
+    cursor: pointer; font-family: 'Nunito Sans', sans-serif; transition: background 0.3s; position: relative;
+  }
+  .booking-fields button#booking-submit:hover { background: #0D2535; }
+  .booking-fields button#booking-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+  .btn-spinner { display: none; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; margin-left: 0.6rem; vertical-align: middle; }
+  button.loading .btn-text { opacity: 0.5; }
+  button.loading .btn-spinner { display: inline-block; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .booking-status { font-size: 0.85rem; padding: 0.8rem 1rem; margin-top: 0.5rem; display: none; }
+  .booking-status.success { display: block; color: #6ecf8e; border: 1px solid rgba(110,207,142,0.25); background: rgba(110,207,142,0.07); }
+  .booking-status.error { display: block; color: #e07070; border: 1px solid rgba(224,112,112,0.25); background: rgba(224,112,112,0.07); }
+
+  #dest-booking { background:linear-gradient(135deg,var(--spice) 0%,#3D1505 40%,var(--deep) 100%); text-align:center; padding:7rem 4rem; position:relative; overflow:hidden; }
+  #dest-booking::before { content:''; position:absolute; inset:0; opacity:0.05; background-image:repeating-linear-gradient(45deg,var(--gold) 0,var(--gold) 1px,transparent 0,transparent 50%); background-size:20px 20px; }
+  .booking-content { position:relative; z-index:1; }
+  .booking-title { font-family:'Cormorant Garamond',serif; font-size:clamp(2.5rem,5vw,5rem); font-weight:300; color:var(--ivory); margin-bottom:1rem; }
+  .booking-title em { font-style:italic; color:var(--gold); }
+  .booking-sub { color:rgba(255,255,255,0.6); margin-bottom:3rem; font-size:1rem; }
+  .btn-primary { display:inline-block; padding:1rem 3rem; background:var(--terracotta); color:var(--ivory); font-size:0.78rem; letter-spacing:0.18em; text-transform:uppercase; text-decoration:none; transition:background 0.3s; margin-right:1rem; }
+  .btn-primary:hover { background:var(--spice); }
+  .btn-ghost { display:inline-block; padding:1rem 3rem; border:1px solid rgba(232,213,176,0.3); color:var(--sand); font-size:0.78rem; letter-spacing:0.18em; text-transform:uppercase; text-decoration:none; transition:all 0.3s; }
+  .btn-ghost:hover { border-color:var(--gold); color:var(--gold); }
+
+  footer { background:#060503; padding:5rem 4rem 2rem; }
+  .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:4rem; padding-bottom:4rem; border-bottom:1px solid rgba(255,255,255,0.06); }
+  .footer-logo { font-family:'Cinzel',serif; font-size:1.8rem; color:var(--gold); margin-bottom:1.2rem; }
+  .footer-logo span { color:var(--terracotta); }
+  .footer-contact { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-contact a { font-size: 0.8rem; color: var(--muted); text-decoration: none; transition: color 0.3s; }
+  .footer-contact a:hover { color: var(--saffron); }
+  .footer-tagline { font-size:0.85rem; color:var(--muted); line-height:1.8; max-width:280px; }
+  .footer-col h4 { font-family:'Cinzel',serif; font-size:0.75rem; letter-spacing:0.2em; color:var(--gold); margin-bottom:1.5rem; }
+  .footer-col ul { list-style:none; display:flex; flex-direction:column; gap:0.8rem; }
+  .footer-col ul a { font-size:0.82rem; color:var(--muted); text-decoration:none; transition:color 0.3s; }
+  .footer-col ul a:hover { color:var(--sand); }
+  .footer-bottom { padding-top:2rem; display:flex; justify-content:space-between; align-items:center; }
+  .footer-copy { font-size:0.75rem; color:var(--muted); }
+  .footer-legal { display:flex; gap:2rem; }
+  .footer-legal a { font-size:0.72rem; color:var(--muted); text-decoration:none; }
+
+  .reveal { opacity:0; transform:translateY(30px); transition:opacity 0.7s ease,transform 0.7s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+  .reveal-delay-1 { transition-delay:0.1s; } .reveal-delay-2 { transition-delay:0.2s; } .reveal-delay-3 { transition-delay:0.3s; }
+
+  @media(max-width:900px){
+    nav { padding:1.2rem 2rem; } .nav-links { display:none; }
+    #facts { padding:2rem; } .facts-grid { grid-template-columns:repeat(2,1fr); }
+    .content-section,.activities-strip { padding:5rem 2rem; }
+    .overview-grid { grid-template-columns:1fr; gap:3rem; }
+    .activities-grid,.highlights-grid { grid-template-columns:1fr; }
+    .itinerary-layout { grid-template-columns:1fr; gap:3rem; } .itinerary-sidebar { position:static; }
+    .practical-grid { grid-template-columns:1fr 1fr; }
+    .footer-grid { grid-template-columns:1fr 1fr; gap:2rem; }
+    .hero-content { padding:0 2rem 5rem; }
+  }
+
+   /* ── WhatsApp FAB ── */
+  .wa-fab {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+  }
+  .wa-tooltip {
+    background: var(--deep);
+    color: var(--ivory);
+    font-size: 0.82rem;
+    padding: 0.5rem 0.9rem;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(8px);
+    transition: opacity 0.25s, transform 0.25s;
+    pointer-events: none;
+    border: 1px solid rgba(212,168,67,0.25);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    font-family: 'Nunito Sans', sans-serif;
+  }
+  .wa-fab:hover .wa-tooltip { opacity: 1; transform: translateX(0); }
+  .wa-btn {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: #25D366;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .wa-btn:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(37,211,102,0.55); }
+  .wa-btn svg { width: 30px; height: 30px; fill: white; }
+  .wa-pulse {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: #25D366;
+    animation: waPulse 2.2s ease-out infinite;
+    z-index: -1;
+  }
+  @keyframes waPulse {
+    0%   { transform: scale(1);   opacity: 0.6; }
+    70%  { transform: scale(1.5); opacity: 0; }
+    100% { transform: scale(1.5); opacity: 0; }
+  }
+  
+
+  .tour-detail-link::after { content: '→'; }
+
+  /* ── TOUR INCLUSIONS SECTION ── */
+  #itinerary { padding:8rem 4rem; background:var(--midnight); }
+  .prog-header { margin-bottom:4rem; }
+  .prog-sub { color:var(--muted); font-size:0.9rem; margin-top:1rem; max-width:540px; }
+  .prog-tours-list { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; }
+  .prog-tour-card { background:var(--deep); padding:2.2rem; display:flex; flex-direction:column; position:relative; overflow:hidden; transition:transform 0.4s ease; }
+  .prog-tour-card::before { content:''; position:absolute; bottom:0; left:0; right:0; height:2px; background:linear-gradient(to right,var(--terracotta),var(--gold)); transform:scaleX(0); transition:transform 0.4s; z-index:2; }
+  .prog-tour-card:hover { transform:translateY(-4px); }
+  .prog-tour-card:hover::before { transform:scaleX(1); }
+  .prog-tour-header { margin-bottom:1.4rem; }
+  .prog-tour-name { font-family:'Cormorant Garamond',serif; font-size:1.55rem; font-weight:400; color:var(--ivory); line-height:1.15; margin-bottom:0.5rem; }
+  .prog-tour-badge { display:inline-block; padding:0.28rem 0.8rem; border:1px solid var(--terracotta); font-size:0.6rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--terracotta); }
+  .prog-incl-row { display:flex; flex-direction:column; gap:1.2rem; flex:1; margin-bottom:1.4rem; }
+  .prog-incl-col h5 { font-size:0.6rem; letter-spacing:0.28em; text-transform:uppercase; margin-bottom:0.55rem; }
+  .prog-incl-col.yes h5 { color:#7ec88b; }
+  .prog-incl-col.no h5 { color:#c87e7e; }
+  .prog-incl-col ul { list-style:none; padding:0; margin:0; }
+  .prog-incl-col ul li { font-size:0.78rem; color:var(--muted); padding:0.18rem 0; line-height:1.55; display:flex; align-items:flex-start; gap:0.45rem; }
+  .prog-incl-col.yes ul li::before { content:'✓'; color:#7ec88b; flex-shrink:0; font-size:0.68rem; margin-top:0.1rem; }
+  .prog-incl-col.no ul li::before { content:'✗'; color:#c87e7e; flex-shrink:0; font-size:0.68rem; margin-top:0.1rem; }
+  .prog-divider { height:1px; background:rgba(255,255,255,0.06); margin-bottom:1.2rem; }
+  .prog-detail-link { font-size:0.68rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--terracotta); text-decoration:none; transition:color 0.3s; margin-top:auto; }
+  .prog-detail-link:hover { color:var(--gold); }
+  @media(max-width:900px){ .prog-tours-list { grid-template-columns:repeat(2,1fr); } #itinerary { padding:5rem 2rem; } }
+  @media(max-width:600px){ .prog-tours-list { grid-template-columns:1fr; } }
+
+</style>
+</head>
+<body>
+<nav id="navbar">
+  <a href="index.html" class="logo">Adar<span>dour</span> Tours</a>
+  <ul class="nav-links">
+    <li><a href="index.html#destinations">Destinations</a></li>
+    <li><a href="index.html#tours">Tours</a></li>
+    <li><a href="index.html#experience">Experience</a></li>
+    <li><a href="index.html#testimonials">Stories</a></li>
+    <li><a href="index.html#booking">Contact</a></li>
+  </ul>
+  <a href="#dest-booking" class="nav-cta">Plan Your Journey</a>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="wave-anim"><div class="wave"></div><div class="wave"></div></div>
+  <div class="wind-lines"></div>
+  <div class="hero-content">
+    <a href="index.html#destinations" class="back-link">← Back to Destinations</a>
+    <div class="dest-region-tag">✦ Atlantic Coast · Morocco</div>
+    <h1 class="hero-title">Essa-<br><em>ouira</em></h1>
+    <p class="hero-sub">A walled port city of white ramparts and ocean breezes — where Gnawa music drifts through cobalt-blue doors and the Atlantic horizon stretches endlessly west.</p>
+  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div>Scroll</div>
+</section>
+
+<section id="facts">
+  <div class="facts-grid">
+    <div class="fact-item"><div class="fact-icon">🌊</div><div class="fact-value">Atlantic</div><div class="fact-label">Ocean Facing</div></div>
+    <div class="fact-item"><div class="fact-icon">💨</div><div class="fact-value">Windy</div><div class="fact-label">Kite Capital</div></div>
+    <div class="fact-item"><div class="fact-icon">🏛️</div><div class="fact-value">UNESCO</div><div class="fact-label">World Heritage</div></div>
+    <div class="fact-item"><div class="fact-icon">🎵</div><div class="fact-value">Gnawa</div><div class="fact-label">Music Capital</div></div>
+    <div class="fact-item"><div class="fact-icon">🚗</div><div class="fact-value">2.5hrs</div><div class="fact-label">From Marrakech</div></div>
+  </div>
+</section>
+
+<section class="content-section" style="background:var(--midnight)">
+  <div class="overview-grid">
+    <div class="overview-text reveal">
+      <div class="section-label">✦ The Windy City</div>
+      <h2 class="section-title">Where Africa<br>meets the <em>Atlantic</em></h2>
+      <p>Essaouira — known as Mogador through much of its history — has been a crossroads of civilisations since the Phoenicians traded purple dye here three thousand years ago. Today, its UNESCO-listed medina of whitewashed walls and cobalt-painted woodwork is one of Morocco's most immediately beguiling places.</p>
+      <p>The city is defined by its wind — the alizé trade wind blows almost year-round from the north, keeping temperatures cool and filling the bay with the coloured kites of surfers and windsurfers. The enormous beach stretches south for kilometres, wild and largely unspoiled.</p>
+      <p>Essaouira has long attracted artists, musicians, and dreamers — Jimi Hendrix famously visited in 1969, and the city's Gnawa music festival remains one of Africa's great annual cultural events. This is Morocco at its most bohemian, its most open, its most itself.</p>
+    </div>
+    <div class="overview-visual reveal reveal-delay-2">
+      <div class="img-frame">
+        <img src="essaouira\sunset saouira.webp" alt="Essaouira white ramparts"
+             onerror="this.style.display='none'">
+        <div class="img-caption">The Ramparts at Sunset</div>
+      </div>
+      <div class="img-frame-accent"></div>
+    </div>
+  </div>
+</section>
+
+<div class="activities-strip">
+  <div class="reveal">
+    <div class="section-label">✦ What to Do</div>
+    <h2 class="section-title">Essaouira <em>Experiences</em></h2>
+  </div>
+  <div class="activities-grid">
+    <div class="activity-card reveal">
+      <div class="activity-icon">🏄</div>
+      <h4>Surf & Kitesurf</h4>
+      <p>The constant Atlantic wind makes Essaouira one of Africa's top kitesurfing destinations. Surf schools line the beach for beginners and enthusiasts alike.</p>
+    </div>
+    <div class="activity-card reveal reveal-delay-1">
+      <div class="activity-icon">🎵</div>
+      <h4>Gnawa Music</h4>
+      <p>The mystical Gnawa tradition — descended from sub-Saharan Africa — fills the medina's squares nightly. The June festival draws artists from across the world.</p>
+    </div>
+    <div class="activity-card reveal reveal-delay-2">
+      <div class="activity-icon">🐟</div>
+      <h4>Harbour & Fish Grills</h4>
+      <p>The blue-painted fishing harbour is where the day's catch is landed and immediately grilled on open charcoal. Fresh sardines here are the finest in Morocco.</p>
+    </div>
+    <div class="activity-card reveal reveal-delay-3">
+      <div class="activity-icon">🌿</div>
+      <h4>Argan Country</h4>
+      <p>The road between Essaouira and Agadir passes through the world's only native argan forest — visit a women's cooperative and taste the oil that built a trade.</p>
+    </div>
+  </div>
+</div>
+
+<section class="content-section" style="background:var(--deep)">
+  <div class="reveal" style="text-align:center;margin-bottom:4rem;">
+    <div class="section-label">✦ Must-See</div>
+    <h2 class="section-title">Essaouira <em>Highlights</em></h2>
+  </div>
+  <div class="highlights-grid">
+    <div class="highlight-card reveal">
+      <div class="highlight-card-inner">
+        <div class="highlight-fallback" style="background:linear-gradient(135deg,#0A1A35,#1A3560)"><img class="tour-img"
+      src="essaouira\skala essaouira.webp" alt="Skala de la Ville"></div>
+        <div class="highlight-info">
+          <div class="highlight-num">01</div>
+          <div class="highlight-name">Skala de la Ville</div>
+          <div class="highlight-desc">The great sea bastion of the ramparts — where 18th-century European cannons still point out to sea and the wind carries salt spray high over the battlements.</div>
+        </div>
+      </div>
+    </div>
+    <div class="highlight-card reveal reveal-delay-1">
+      <div class="highlight-card-inner">
+        <div class="highlight-fallback" style="background:linear-gradient(135deg,#0A1A35,#1A3560)"><img class="tour-img"
+      src="essaouira\souks.webp" alt="The Medina Souks"></div>
+        <div class="highlight-info">
+          <div class="highlight-num">02</div>
+          <div class="highlight-name">The Medina Souks</div>
+          <div class="highlight-desc">Essaouira's market specialises in thuya wood — local artisans carve the gnarled root of this rare tree into jewellery boxes, chess sets, and sculptures of extraordinary beauty.</div>
+        </div>
+      </div>
+    </div>
+    <div class="highlight-card reveal reveal-delay-2">
+      <div class="highlight-card-inner">
+        <div class="highlight-fallback" style="background:linear-gradient(135deg,#0A1A35,#1A3560)"><img class="tour-img"
+      src="essaouira\handrix.webp" alt="Diabat & Hendrix"></div>
+        <div class="highlight-info">
+          <div class="highlight-num">03</div>
+          <div class="highlight-name">Diabat & Hendrix</div>
+          <div class="highlight-desc">Walk the beach south to the ruined Kasbah Hamidouch where Jimi Hendrix famously camped — the ruins stand against the Atlantic sky like a dream half-remembered.</div>
+        </div>
+      </div>
+    </div>
+    <div class="highlight-card reveal">
+      <div class="highlight-card-inner">
+        <div class="highlight-fallback" style="background:linear-gradient(135deg,#0A1A35,#1A3560)"><img class="tour-img"
+      src="essaouira\The Blue Harbour2.webp" alt="The Blue Harbour"></div>
+        <div class="highlight-info">
+          <div class="highlight-num">04</div>
+          <div class="highlight-name">The Blue Harbour</div>
+          <div class="highlight-desc">A working fishing port painted in vivid blues and whites — watch the catch being landed and immediately grilled over charcoal by fishermen who have done this for generations.</div>
+        </div>
+      </div>
+    </div>
+    <div class="highlight-card reveal reveal-delay-1">
+      <div class="highlight-card-inner">
+        <div class="highlight-fallback" style="background:linear-gradient(135deg,#0A1A35,#1A3560)"><img class="tour-img"
+      src="essaouira\Iles Purpuraires.webp" alt="Iles Purpuraires"></div>
+        <div class="highlight-info">
+          <div class="highlight-num">05</div>
+          <div class="highlight-name">Iles Purpuraires</div>
+          <div class="highlight-desc">Three islands just offshore where the Romans once produced imperial purple dye — today a protected reserve and nesting site for rare Eleonora's falcons.</div>
+        </div>
+      </div>
+    </div>
+    <div class="highlight-card reveal reveal-delay-2">
+      <div class="highlight-card-inner">
+        <div class="highlight-fallback" style="background:linear-gradient(135deg,#0A1A35,#1A3560)"><img class="tour-img"
+      src="essaouira\sunset.webp" alt="Iles Purpuraires"></div>
+        <div class="highlight-info">
+          <div class="highlight-num">06</div>
+          <div class="highlight-name">Sunset on the Ramparts</div>
+          <div class="highlight-desc">Essaouira's sunsets are legendary — from the top of the Skala, the sky turns extraordinary shades of pink and amber above a silver sea as seagulls wheel below.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="content-section" style="background:var(--deep)">
+  <div class="reveal" style="text-align:center;margin-bottom:1rem;">
+    <div class="section-label">✦ Book a Trip</div>
+    <h2 class="section-title">Tours from <em>Essaouira</em></h2>
+  </div>
+  <div class="tours-grid">
+
+      <div class="tour-card reveal">
+        <div class="tour-img-wrap">
+          <img class="tour-img" src="essaouira\essaouiraee.webp" alt="Essaouira coastal city" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('active')">
+          <div class="tour-img-fallback" style="background:linear-gradient(135deg,#0A1A2E,#1A3550)">🌊</div>
+          <div class="tour-img-overlay"></div>
+        </div>
+        <div class="tour-body">
+          <div class="tour-badge">Coastal Escape</div>
+          <div class="tour-name">Marrakech ↔ Essaouira Day Excursion</div>
+          <div class="tour-desc">A scenic round-trip through the argan forest connecting Marrakech with Essaouira — guided medina walk, the Skala ramparts, harbour fish lunch, and free time on the beach before the drive back.</div>
+          <div class="tour-meta">
+            <span>🕐 1 Day</span>
+            <span>👥 1–7 People</span>
+            <span>🚗 Private Transport</span>
+          </div>
+          <div class="tour-price">
+            <div><div class="price-from">From</div><div class="price-amount"><sup>$</sup>60</div></div>
+            <button class="tour-book" data-tour="Marrakech to Essaouira Day Excursion">Book Now →</button>
+          </div>
+          <div class="tour-price-note">
+            <a href="#marrakech-essaouira-excursion" class="tour-detail-link">Full Tour Details</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="tour-card reveal reveal-delay-1">
+        <div class="tour-img-wrap">
+          <img class="tour-img" src="essaouira\The Blue Harbour2.webp" alt="Argan Cooperative and Diabat Walk" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('active')">
+          <div class="tour-img-fallback" style="background:linear-gradient(135deg,#0D2535,#1A4A6B)">🌿</div>
+          <div class="tour-img-overlay"></div>
+        </div>
+        <div class="tour-body">
+          <div class="tour-badge">Half-Day</div>
+          <div class="tour-name">Argan Cooperative & Diabat Walk</div>
+          <div class="tour-desc">Visit a women's argan oil cooperative on the edge of town, then walk the wild beach south to the ruined Kasbah of Diabat — Essaouira's most atmospheric half-day.</div>
+          <div class="tour-meta">
+            <span>🕐 Half Day</span>
+            <span>👥 1–7 People</span>
+            <span>🚶 On Foot</span>
+          </div>
+          <div class="tour-price">
+            <div><div class="price-from">From</div><div class="price-amount"><sup>$</sup>35</div></div>
+            <button class="tour-book" data-tour="Argan Cooperative & Diabat Walk">Book Now →</button>
+          </div>
+          <div class="tour-price-note">
+            <a href="#argan-diabat-walk" class="tour-detail-link">Full Tour Details</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="tour-card reveal reveal-delay-2">
+        <div class="tour-img-wrap">
+          <img class="tour-img" src="essaouira\skala essaouira.webp" alt="Ramparts & Gnawa Evening" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('active')">
+          <div class="tour-img-fallback" style="background:linear-gradient(135deg,#0A1A35,#1A3560)">🎵</div>
+          <div class="tour-img-overlay"></div>
+        </div>
+        <div class="tour-body">
+          <div class="tour-badge">Cultural Evening</div>
+          <div class="tour-name">Ramparts, Souks & Gnawa Night</div>
+          <div class="tour-desc">A guided evening walking the great sea bastion at sunset, through the thuya woodworkers' souk, and into the medina square where Gnawa musicians fill the night with ancient rhythms.</div>
+          <div class="tour-meta">
+            <span>🕐 Evening</span>
+            <span>👥 1–8 People</span>
+          </div>
+          <div class="tour-price">
+            <div><div class="price-from">From</div><div class="price-amount"><sup>$</sup>45</div></div>
+            <button class="tour-book" data-tour="Ramparts Souks & Gnawa Night">Book Now →</button>
+          </div>
+          <div class="tour-price-note">
+            <a href="#ramparts-gnawa-night" class="tour-detail-link">Full Tour Details</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="tour-card reveal reveal-delay-2">
+        <div class="tour-img-wrap">
+          <img class="tour-img" src="Bespoke.webp" alt="Luxury riad interior" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('active')">
+          <div class="tour-img-fallback" style="background:linear-gradient(135deg,#0A2020,#153535)">✨</div>
+          <div class="tour-img-overlay"></div>
+        </div>
+        <div class="tour-body">
+          <div class="tour-badge" style="border-color:var(--ocean-light);color:var(--ocean-light)">Luxury Private</div>
+          <div class="tour-name">Bespoke Morocco</div>
+          <div class="tour-desc">Entirely tailor-made. Your pace, your passions, your Morocco. Private transfers, hand-picked riads, exclusive artisan access, private cooking classes.</div>
+          <div class="tour-meta">
+            <span>🕐 Flexible</span>
+            <span>👥 1–7 People</span>
+          </div>
+          <div class="tour-price">
+            <div><div class="price-from">From</div><div class="price-amount"><sup>$</sup>2,400</div></div>
+            <button class="tour-book" data-tour="Bespoke Private Tour">Enquire →</button>
+          </div>
+          <div class="tour-price-note">
+            <a href="#bespoke-private-tour" class="tour-detail-link">Full Tour Details</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="tours-view-all reveal">
+      <a href="#dest-booking" class="btn-ghost">Enquire about more Essaouira tours →</a>
+    </div>
+</section>
+
+<section class="content-section" style="background:var(--midnight)">
+  <div class="prog-header reveal">
+    <div class="section-label">✦ What's Included</div>
+    <h2 class="section-title">Tour Details &amp; <em>Inclusions</em></h2>
+    <p class="prog-sub">Every tour listed above — full breakdown of what's covered and what to budget for separately.</p>
+  </div>
+  <div class="prog-tours-list">
+
+      <div class="prog-tour-card reveal">
+        <div class="prog-tour-header">
+          <div id="marrakech-essaouira-excursion"></div>
+          <div class="prog-tour-name">Marrakech to Essaouira Day Excursion</div>
+          <div class="prog-tour-badge">Day Trip · 1 Day</div>
+        </div>
+        <div class="prog-incl-row">
+          <div class="prog-incl-col yes">
+            <h5>✓ Included</h5>
+            <ul><li>Private A/C transport & fuel</li><li>English-speaking driver/guide</li><li>Pick-up & drop-off from Marrakech hotel/riad</li><li>Guided medina walk (Skala, Moulay Hassan Sq., harbour)</li><li>Argan oil women's cooperative stop en route</li></ul>
+          </div>
+          <div class="prog-incl-col no">
+            <h5>✗ Not Included</h5>
+            <ul><li>Meals & drinks</li><li>Paid monument entries</li><li>Personal expenses & souvenirs</li><li>Travel insurance</li></ul>
+          </div>
+        </div>
+        <div class="prog-divider"></div>
+        <a href="https://wa.me/+351961500554?text=Hello%2C%20I%27m%20interested%20in%20more%20details%20about%20an%20Essaouira%20tour%20with%20Adardour%20Tours!" target="_blank" rel="noopener" class="prog-detail-link">Text us For Full tour details →</a>
+      </div>
+      <div class="prog-tour-card reveal">
+        <div class="prog-tour-header">
+          <div id="argan-diabat-walk"></div>
+          <div class="prog-tour-name">Argan Cooperative & Diabat Walk</div>
+          <div class="prog-tour-badge">Half Day · Local</div>
+        </div>
+        <div class="prog-incl-row">
+          <div class="prog-incl-col yes">
+            <h5>✓ Included</h5>
+            <ul><li>Local expert guide (half day)</li><li>Argan cooperative visit & oil tasting</li><li>Diabat village walk & ruins</li><li>Hendrix Villa viewpoint stop</li></ul>
+          </div>
+          <div class="prog-incl-col no">
+            <h5>✗ Not Included</h5>
+            <ul><li>Meals & drinks</li><li>Personal expenses</li><li>Transport to starting point (if needed)</li></ul>
+          </div>
+        </div>
+        <div class="prog-divider"></div>
+        <a href="https://wa.me/+351961500554?text=Hello%2C%20I%27m%20interested%20in%20more%20details%20about%20an%20Essaouira%20tour%20with%20Adardour%20Tours!" target="_blank" rel="noopener" class="prog-detail-link">Text us For Full tour details →</a>
+      </div>
+      <div class="prog-tour-card reveal">
+        <div class="prog-tour-header">
+          <div id="ramparts-gnawa-night"></div>
+          <div class="prog-tour-name">Ramparts Souks & Gnawa Night</div>
+          <div class="prog-tour-badge">Evening Experience</div>
+        </div>
+        <div class="prog-incl-row">
+          <div class="prog-incl-col yes">
+            <h5>✓ Included</h5>
+            <ul><li>Evening local guide</li><li>Skala ramparts sunset walk</li><li>Medina souk & artisan quarter tour</li><li>Gnawa music session introduction</li><li>Mint tea with local musicians</li></ul>
+          </div>
+          <div class="prog-incl-col no">
+            <h5>✗ Not Included</h5>
+            <ul><li>Meals & drinks</li><li>Personal expenses</li><li>Formal concert tickets (if applicable)</li></ul>
+          </div>
+        </div>
+        <div class="prog-divider"></div>
+        <a href="https://wa.me/+351961500554?text=Hello%2C%20I%27m%20interested%20in%20more%20details%20about%20an%20Essaouira%20tour%20with%20Adardour%20Tours!" target="_blank" rel="noopener" class="prog-detail-link">Text us For Full tour details →</a>
+      </div>
+      <div class="prog-tour-card reveal">
+        <div class="prog-tour-header">
+          <div id="bespoke-private-tour"></div>
+          <div class="prog-tour-name">Bespoke Private Tour</div>
+          <div class="prog-tour-badge">Luxury Private · Flexible</div>
+        </div>
+        <div class="prog-incl-row">
+          <div class="prog-incl-col yes">
+            <h5>✓ Included</h5>
+            <ul><li>Tailored private itinerary</li><li>Luxury private transport</li><li>Personal English-speaking guide</li><li>Hand-picked riad accommodation</li><li>Exclusive cultural & culinary experiences</li></ul>
+          </div>
+          <div class="prog-incl-col no">
+            <h5>✗ Not Included</h5>
+            <ul><li>International flights</li><li>Travel insurance</li><li>Personal spending money</li><li>Optional extras</li></ul>
+          </div>
+        </div>
+        <div class="prog-divider"></div>
+        <a href="https://wa.me/+351961500554?text=Hello%2C%20I%27m%20interested%20in%20more%20details%20about%20an%20Essaouira%20tour%20with%20Adardour%20Tours!" target="_blank" rel="noopener" class="prog-detail-link">Text us For Full tour details →</a>
+      </div>
+  </div>
+</section>
+
+<section class="content-section" style="background:var(--deep)">
+  <div class="reveal">
+    <div class="section-label">✦ Plan Your Visit</div>
+    <h2 class="section-title">Practical <em>Information</em></h2>
+  </div>
+  <div class="practical-grid">
+    <div class="practical-card reveal">
+      <div class="picon">🗓️</div>
+      <h4>Best Time to Visit</h4>
+      <ul>
+        <li>April–June: Warm, manageable winds</li>
+        <li>July–Aug: Peak surf season, lively</li>
+        <li>Sept–Oct: Ideal all-round conditions</li>
+        <li>Dec–Feb: Quietest and most atmospheric</li>
+      </ul>
+    </div>
+    <div class="practical-card reveal reveal-delay-1">
+      <div class="picon">🏨</div>
+      <h4>Where to Stay</h4>
+      <ul>
+        <li>Boutique riads in the medina</li>
+        <li>Converted merchant houses on the ramparts</li>
+        <li>Atlantic-facing guesthouses in Diabat</li>
+        <li>Modern boutique hotels near the beach</li>
+      </ul>
+    </div>
+    <div class="practical-card reveal reveal-delay-2">
+      <div class="picon">🍽️</div>
+      <h4>Food to Try</h4>
+      <ul>
+        <li>Grilled sardines at the harbour stalls</li>
+        <li>Amlou — argan oil, almonds, and honey</li>
+        <li>Pastilla au lait — flaky pastry with cream</li>
+        <li>Chermoula — local spiced fish marinade</li>
+      </ul>
+    </div>
+    <div class="practical-card reveal reveal-delay-3">
+      <div class="picon">💡</div>
+      <h4>Insider Tips</h4>
+      <ul>
+        <li>Always bring a windproof layer — always</li>
+        <li>The Gnawa music festival is in late June</li>
+        <li>Shop at cooperatives, not tourist shops</li>
+        <li>Walk south of the city at low tide</li>
+        <li>Book surf lessons in advance in summer</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="dest-booking">
+  <div class="booking-content reveal">
+    <div class="section-label">✦ Begin Your Journey</div>
+    <h2 class="booking-title">Ready for <em>Essaouira</em>?</h2>
+    <p class="booking-sub">Let the Atlantic breeze carry you to Morocco's most soulful coast — tell us your dates and we'll craft the perfect itinerary within 24 hours.</p>
+    <div class="booking-form-wrap">
+      <div class="booking-fields" role="group" aria-label="Booking enquiry form">
+        <input id="booking-name" type="text" placeholder="Your full name" autocomplete="name" aria-label="Full name" />
+        <input id="booking-email" type="email" placeholder="Email address" autocomplete="email" aria-label="Email address" />
+        <select id="booking-tour" aria-label="Choose a tour">
+          <option value="" disabled selected>Choose a tour</option>
+          <optgroup label="From Essaouira">
+            <option>Marrakech to Essaouira Day Excursion</option>
+            <option>Argan Cooperative &amp; Diabat Walk</option>
+            <option>Ramparts Souks &amp; Gnawa Night</option>
+            <option>Bespoke Private Tour</option>
+          </optgroup>
+        </select>
+        <button id="booking-submit" type="button">
+          <span class="btn-text">Request Info</span>
+          <span class="btn-spinner" aria-hidden="true"></span>
+        </button>
+      </div>
+      <div id="booking-status" class="booking-status" role="alert" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<!-- WhatsApp FAB -->
+ <div class="wa-fab">
+  <div class="wa-tooltip">💬 Chat with us on WhatsApp</div>
+  <a class="wa-btn" href="https://wa.me/+351961500554?text=Hello%2C%20I%27m%20interested%20in%20booking%20a%20tour%20with%20AdardourTours!" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <div class="wa-pulse"></div>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">ADAR<span>DOUR</span> Tours</div>
+      <div class="footer-tagline">Crafting immersive Moroccan journeys since 2019. Licensed by the Moroccan Ministry of Tourism.</div>
+       <div class="footer-contact">
+       <a href="tel:+212524443322">📞 +212 524 44 33 22</a>
+       <a href="mailto:hello@Adardour.com">✉️ hello@Adardour.com</a>
+       <a href="#">📍 47 some place, Ouarzazate, Morocco</a>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Destinations</h4><ul>
+      <li><a href="marrakech.html">Marrakech</a></li>
+      <li><a href="sahara.html">Sahara</a></li>
+      <li><a href="chefchaouen.html">Chefchaouen</a></li>
+      <li><a href="essaouira.html">Essaouira</a></li>
+      <li><a href="fes.html">Fès el-Bali</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Tours</h4><ul>
+      <li><a href="index.html#tours">Atlantic Trail</a></li>
+      <li><a href="index.html#tours">Bespoke Private</a></li>
+      <li><a href="index.html#tours">Flavours Tour</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Company</h4><ul>
+      <li><a href="#">About Us</a></li>
+      <li><a href="#">Our Guides</a></li>
+      <li><a href="#">Blog</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Adardour. All rights reserved.</div>
+    <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
+  </div>
+</footer>
+
+<script>
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 60); });
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  /* ── "Book Now" buttons → scroll to form & pre-select tour ── */
+  document.querySelectorAll('.tour-book[data-tour]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const val = btn.dataset.tour;
+      const sel = document.getElementById('booking-tour');
+      Array.from(sel.options).forEach(o => { if (o.text.trim() === val.trim()) o.selected = true; });
+      document.getElementById('dest-booking').scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  /* ── EmailJS ── */
+  const EMAILJS_PUBLIC_KEY  = '49SHLmJ3QicguWw0-';
+  const EMAILJS_SERVICE_ID  = 'service_pxfuhdt';
+  const EMAILJS_TEMPLATE_ID = 'template_ftoq1eu';
+
+  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
+  const submitBtn  = document.getElementById('booking-submit');
+  const statusBox  = document.getElementById('booking-status');
+  const nameInput  = document.getElementById('booking-name');
+  const emailInput = document.getElementById('booking-email');
+  const tourSelect = document.getElementById('booking-tour');
+
+  function setStatus(type, msg) {
+    statusBox.className = 'booking-status ' + type;
+    statusBox.textContent = msg;
+  }
+
+  function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+  async function handleSubmit() {
+    [nameInput, emailInput, tourSelect].forEach(el => el.classList.remove('field-error'));
+    statusBox.className = 'booking-status';
+    statusBox.textContent = '';
+
+    const name  = nameInput.value.trim();
+    const email = emailInput.value.trim();
+    const tour  = tourSelect.value;
+
+    let err = false;
+    if (!name)                { nameInput.classList.add('field-error');  err = true; }
+    if (!isValidEmail(email)) { emailInput.classList.add('field-error'); err = true; }
+    if (!tour)                { tourSelect.classList.add('field-error'); err = true; }
+
+    if (err) { setStatus('error', '⚠ Please complete all fields with a valid email address.'); return; }
+
+    submitBtn.disabled = true;
+    submitBtn.classList.add('loading');
+
+    try {
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+        from_name: name, from_email: email, tour, reply_to: email,
+      });
+      setStatus('success', `✦ Shukran, ${name}! Your enquiry has been sent. We'll be in touch within 24 hours.`);
+      nameInput.value = ''; emailInput.value = ''; tourSelect.selectedIndex = 0;
+    } catch (e) {
+      console.error('EmailJS error:', e);
+      setStatus('error', '✗ Something went wrong — please try again or email us at hello@adardour.com');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.classList.remove('loading');
+    }
+  }
+
+  submitBtn.addEventListener('click', handleSubmit);
+  [nameInput, emailInput].forEach(el =>
+    el.addEventListener('keydown', e => { if (e.key === 'Enter') handleSubmit(); })
+  );
+</script>
+</body>
+</html>
