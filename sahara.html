@@ -293,6 +293,156 @@
   @media(max-width:600px){ .prog-tours-list { grid-template-columns:1fr; } }
 
 
+
+  /* ── NAV SOCIAL ── */
+  .nav-social { display: flex; gap: 0.6rem; align-items: center; }
+  .nav-social-icon { width: 34px; height: 34px; border: 1px solid rgba(196,98,45,0.35); display: flex; align-items: center; justify-content: center; text-decoration: none; color: var(--terracotta); transition: all 0.3s; }
+  .nav-social-icon:hover { background: var(--terracotta); color: var(--ivory); }
+  .nav-social-icon svg { width: 15px; height: 15px; }
+
+  /* ── HAMBURGER ── */
+  .nav-hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px; z-index: 300; }
+  .nav-hamburger span { display: block; width: 24px; height: 2px; background: var(--sand); border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
+
+  /* ── MOBILE DRAWER — slides in from right, half screen ── */
+  .mobile-menu {
+    position: fixed;
+    top: 0; right: 0;
+    width: 75vw;
+    max-width: 320px;
+    height: 100%;
+    z-index: 250;
+    background: rgba(13,10,6,0.99);
+    border-left: 1px solid rgba(212,168,67,0.12);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 5rem 2rem 3rem;
+    gap: 0;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: transform 0.35s ease, opacity 0.35s ease, visibility 0.35s ease;
+  }
+  .mobile-menu.open {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(0);
+  }
+  /* dim overlay behind drawer */
+  .mobile-menu-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 249;
+    background: rgba(0,0,0,0.55);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+  }
+  .mobile-menu-overlay.open { visibility: visible; opacity: 1; }
+
+  /* close ✕ button inside drawer */
+  .mobile-menu-close {
+    position: absolute;
+    top: 1.2rem; right: 1.2rem;
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 1.4rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 6px;
+    transition: color 0.2s;
+  }
+  .mobile-menu-close:hover { color: var(--gold); }
+
+  .mobile-menu-links { display: flex; flex-direction: column; width: 100%; gap: 0; }
+  .mobile-menu-links a {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 300;
+    color: var(--sand);
+    text-decoration: none;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    transition: color 0.2s, padding-left 0.2s;
+    letter-spacing: 0.04em;
+    width: 100%;
+  }
+  .mobile-menu-links a:first-child { border-top: 1px solid rgba(255,255,255,0.06); }
+  .mobile-menu-links a:hover { color: var(--gold); padding-left: 0.4rem; }
+
+  .mobile-menu-social { display: flex; gap: 0.75rem; margin-top: 2.5rem; }
+  .mobile-menu-social a { width: 38px; height: 38px; border: 1px solid rgba(212,168,67,0.2); display: flex; align-items: center; justify-content: center; color: var(--muted); text-decoration: none; transition: all 0.25s; }
+  .mobile-menu-social a:hover { color: var(--gold); border-color: var(--gold); }
+  .mobile-menu-social svg { width: 16px; height: 16px; }
+
+  /* ── FOOTER SOCIAL ── */
+  .footer-social { margin-top: 1.8rem; display: flex; gap: 0.75rem; }
+  .social-icon { width: 38px; height: 38px; border: 1px solid rgba(212,168,67,0.2); display: flex; align-items: center; justify-content: center; text-decoration: none; color: var(--muted); transition: all 0.3s; }
+  .social-icon:hover { border-color: var(--gold); color: var(--gold); }
+  .social-icon svg { width: 17px; height: 17px; }
+
+  /* ══ MOBILE BREAKPOINTS ══ */
+  @media (max-width: 768px) {
+    nav { padding: 1.1rem 1.4rem; }
+    .nav-links { display: none !important; }
+    .nav-social { display: none !important; }
+    .nav-hamburger { display: flex; }
+    .logo { font-size: 1.15rem; }
+
+    #hero { height: 100svh; min-height: 580px; }
+    .hero-title { font-size: clamp(3rem, 13vw, 5rem); margin-bottom: 1.2rem; }
+    .hero-sub { font-size: 0.9rem; padding: 0 0.5rem; margin-bottom: 2rem; }
+    .hero-buttons { flex-direction: column; align-items: center; gap: 0.8rem; }
+    .btn-primary, .btn-ghost { width: 100%; max-width: 280px; text-align: center; }
+    .arch-left { left: -120px; width: 200px; }
+    .arch-right { right: -120px; width: 200px; }
+
+    section { padding: 4rem 1.4rem; }
+    .section-title { font-size: clamp(2rem, 8vw, 3rem); }
+
+    .destinations-header { flex-direction: column; gap: 1.2rem; align-items: flex-start; }
+    .dest-grid { grid-template-columns: 1fr; gap: 3px; }
+    .dest-card:first-child { grid-row: auto; }
+    .dest-card-inner { min-height: 220px !important; }
+    .dest-card:first-child .dest-card-inner { min-height: 280px !important; }
+    .dest-desc { max-height: 60px !important; opacity: 1 !important; }
+    .dest-arrow { opacity: 1 !important; transform: none !important; }
+
+    .tours-intro { grid-template-columns: 1fr; gap: 1.8rem; }
+    .tours-stats { grid-template-columns: 1fr 1fr; }
+    .stat-num { font-size: 2.6rem; }
+    .tab-btn { padding: 0.85rem 0.9rem; font-size: 0.68rem; }
+    .tours-grid { grid-template-columns: 1fr; gap: 3px; }
+    .tour-img-wrap { height: 180px; }
+    .tour-body { padding: 1.6rem; }
+    .tour-name { font-size: 1.4rem; }
+
+    #experience { grid-template-columns: 1fr; }
+    .exp-visual { min-height: 240px; }
+    .exp-content { padding: 3rem 1.4rem; }
+
+    .testimonials-grid { grid-template-columns: 1fr; gap: 3px; }
+
+    #booking { padding: 4.5rem 1.4rem; }
+    .booking-title { font-size: clamp(2rem, 8vw, 3rem); }
+    .booking-fields { flex-direction: column; }
+    .booking-fields input, .booking-fields select { border-right: none; border-bottom: 1px solid rgba(232,213,176,0.1); font-size: 1rem; }
+    #booking-submit { width: 100%; }
+
+    footer { padding: 3.5rem 1.4rem 1.5rem; }
+    .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; padding-bottom: 2.5rem; }
+    .footer-col { display: none; }
+    .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+    .footer-legal { justify-content: center; }
+
+    .wa-fab { bottom: 20px; right: 16px; }
+    .wa-btn { width: 50px; height: 50px; }
+    .wa-tooltip { display: none; }
+  }
+
 </style>
 </head>
 <body>
@@ -305,8 +455,35 @@
     <li><a href="index.html#testimonials">Stories</a></li>
     <li><a href="index.html#booking">Contact</a></li>
   </ul>
-  <a href="#dest-booking" class="nav-cta">Plan Your Journey</a>
+  <div class="nav-social">
+    <a href="https://instagram.com/adardour" target="_blank" rel="noopener" aria-label="Instagram" class="nav-social-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+    <a href="https://facebook.com/adardour" target="_blank" rel="noopener" aria-label="Facebook" class="nav-social-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+    <a href="https://x.com/adardour" target="_blank" rel="noopener" aria-label="X" class="nav-social-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+    <a href="https://tiktok.com/@adardour" target="_blank" rel="noopener" aria-label="TikTok" class="nav-social-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg></a>
+  </div>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div id="mobile-overlay" class="mobile-menu-overlay"></div>
+<!-- MOBILE MENU -->
+<div id="mobile-menu" class="mobile-menu">
+  <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">&#x2715;</button>
+  <nav class="mobile-menu-links">
+    <a href="index.html#destinations">Destinations</a>
+    <a href="index.html#tours">Tours</a>
+    <a href="index.html#experience">Experience</a>
+    <a href="index.html#testimonials">Stories</a>
+    <a href="index.html#booking">Contact</a>
+  </nav>
+  <div class="mobile-menu-social">
+    <a href="https://instagram.com/adardour" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+    <a href="https://facebook.com/adardour" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+    <a href="https://x.com/adardour" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+    <a href="https://tiktok.com/@adardour" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg></a>
+  </div>
+</div>
+
 
 <section id="hero">
   <div class="hero-bg"></div>
@@ -748,6 +925,12 @@
         <a href="mailto:hello@Adardour.com">✉️ hello@Adardour.com</a>
         <a href="#">📍 47 some place, Ouarzazate, Morocco</a>
       </div>
+      <div class="footer-social">
+        <a href="https://instagram.com/adardour" target="_blank" rel="noopener" aria-label="Instagram" class="social-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+        <a href="https://facebook.com/adardour" target="_blank" rel="noopener" aria-label="Facebook" class="social-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+        <a href="https://x.com/adardour" target="_blank" rel="noopener" aria-label="X" class="social-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        <a href="https://tiktok.com/@adardour" target="_blank" rel="noopener" aria-label="TikTok" class="social-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg></a>
+      </div>
     </div>
     <div class="footer-col"><h4>Destinations</h4><ul>
       <li><a href="marrakech.html">Marrakech</a></li>
@@ -851,6 +1034,38 @@
   [nameInput, emailInput].forEach(el =>
     el.addEventListener('keydown', e => { if (e.key === 'Enter') handleSubmit(); })
   );
+
+  /* ── Mobile menu ── */
+  (function() {
+    var ham     = document.getElementById('nav-hamburger');
+    var menu    = document.getElementById('mobile-menu');
+    var overlay = document.getElementById('mobile-overlay');
+    var closeBtn= document.getElementById('mobile-menu-close');
+
+    function openMenu() {
+      menu.classList.add('open');
+      overlay.classList.add('open');
+      ham.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMenu() {
+      menu.classList.remove('open');
+      overlay.classList.remove('open');
+      ham.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    if (ham)     ham.addEventListener('click', openMenu);
+    if (closeBtn)closeBtn.addEventListener('click', closeMenu);
+    if (overlay) overlay.addEventListener('click', closeMenu);
+
+    if (menu) {
+      menu.querySelectorAll('.mobile-menu-links a').forEach(function(a) {
+        a.addEventListener('click', closeMenu);
+      });
+    }
+  })();
+
 </script>
 </body>
 </html>
